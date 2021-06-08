@@ -21,10 +21,10 @@ def create_app():
     login_manager.login_view='auth.login'  
     login_manager.init_app(app)
 
-    from .models import User 
+    from .models import Customer
     @login_manager.user_loader  
-    def load_user(user_id):
-        return User.query.get(int(user_id))
+    def load_user(customer_id):
+        return Customer.query.get(int(customer_id))
 
     from . import views
     app.register_blueprint(views.mainbp)

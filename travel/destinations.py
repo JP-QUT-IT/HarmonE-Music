@@ -2,7 +2,7 @@ import re
 from flask import ( 
     Blueprint, app, flash, render_template, request, url_for, redirect
 ) 
-from .models import Destination,Comment,User
+from .models import Destination,Comment,Customer
 from .forms import CommentForm, DestinationForm, EditDestinationForm
 from flask_login import login_required, current_user
 from . import db
@@ -63,7 +63,7 @@ def comment(destination):
     if form.validate_on_submit():  
       #read the comment from the form
       comment = Comment(text=form.text.data,  
-                        destination=destination_obj, user=current_user) 
+                        destination=destination_obj, customer=current_user) 
       #here the back-referencing works - comment.destination is set
       # and the link is created
       db.session.add(comment) 
