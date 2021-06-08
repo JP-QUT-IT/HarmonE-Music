@@ -9,24 +9,9 @@
     
 </head>
 
-<script type="text/javascript" style="justify-items: right;">
-    var SongNumbers = 3
-    var song = new Array(SongNumbers+1)
-    song[0]= "/static/music/Crazy Frog.mp3"
-    song[1]= "/static/music/Endor.mp3"
-    song[2]= "/static/music/Lemon Tree.mp3"
-    function randomNumber(){
-    var randomLoop = -1
-    while (randomLoop < 0 || randomLoop > SongNumbers || isNaN(randomLoop))
-    { 
-        randomLoop = parseInt(Math.random()*(SongNumbers+1))
-    }
-    return randomLoop
-    }
-</script>
-
 <body>
     <div class="p-3 mb-2" style="background-color: #0046afd3;">
+
         <!-- Header -->
         <header class="bg-light border-bottom">
             <audio id="audioplayer" controls> <!-- Remove the "Controls" Attribute if you don't want the visual controls -->
