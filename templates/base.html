@@ -1,0 +1,177 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Travel App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    
+</head>
+
+<script type="text/javascript" style="justify-items: right;">
+    var SongNumbers = 3
+    var song = new Array(SongNumbers+1)
+    song[0]= "/static/music/Crazy Frog.mp3"
+    song[1]= "/static/music/Endor.mp3"
+    song[2]= "/static/music/Lemon Tree.mp3"
+    function randomNumber(){
+    var randomLoop = -1
+    while (randomLoop < 0 || randomLoop > SongNumbers || isNaN(randomLoop))
+    { 
+        randomLoop = parseInt(Math.random()*(SongNumbers+1))
+    }
+    return randomLoop
+    }
+</script>
+
+<body>
+    <div class="p-3 mb-2" style="background-color: #0046afd3;">
+        <!-- Header -->
+        <header class="bg-light border-bottom">
+            <audio id="audioplayer" controls> <!-- Remove the "Controls" Attribute if you don't want the visual controls -->
+            </audio>
+            <script>
+                var lastSong = null;
+                var selection = null;
+                var playlist = [
+                "/static/music/ABBA - Gimme! Gimme! Gimme!.mp3", "/static/music/ACDC - Back in Black.mp3", 
+                "/static/music/ACDC - Dirty Deeds Done Dirt Cheap.mp3", "/static/music/ACDC - It's along way to the Top.mp3", 
+                "/static/music/ACDC - Shoot To Thrill.mp3", "/static/music/ACDC - Shot in the Dark.mp3", 
+                "/static/music/ACDC - Thunderstruck.mp3", "/static/music/Avenged Sevenfold - Shepherd Of Fire.mp3", 
+                "/static/music/Avenged Sevenfold - Welcome To The Family.mp3", "/static/music/Avicii - Hey Brother.mp3", 
+                "/static/music/Avicii - Waiting For Love.mp3", "/static/music/Bastille - Pompeii.mp3",
+                "/static/music/Bee Gees - Stayin' Alive.mp3", "/static/music/Billy Joel - Uptown Girl.mp3",
+                "/static/music/Black Eyed Peas - Pump it.mp3", "/static/music/Blues Brothers - Everybody Needs Somebody to Love.mp3",
+                "/static/music/Blues Brothers - Jailhouse Rock.mp3", "/static/music/Blues Brothers - Minnie the Moocher.mp3",
+                "/static/music/Blues Brothers - Theme from Rawhide.mp3", "/static/music/Bon Jovi - Bad medicine.mp3",
+                "/static/music/Boston - More Than A Feeling.mp3", "/static/music/Cartoon - Witch Doctor.mp3",
+                "/static/music/Chocolate Starfish - Mountain.mp3", "/static/music/Cold Chisel - Cheap Wine.mp3",
+                "/static/music/Cold Chisel - Forever Now.mp3", "/static/music/Cold Chisel - Khe Sanh.mp3",
+                "/static/music/Coldplay - A Sky Full of Stars.mp3", "/static/music/Coldplay - Adventure of a Lifetime.mp3",
+                "/static/music/Coldplay & Chainsmokers - Something Just Like This.mp3", "/static/music/Boney M - Daddy Cool.mp3",
+                "/static/music/Daft Punk - Get Lucky.mp3", "/static/music/Daft Punk - One More Time.mp3",
+                "/static/music/Daft Punk - Robot Rock.mp3", "/static/music/David Bowie - Let's Dance.mp3",
+                "/static/music/David Bowie - Life on Mars.mp3", "/static/music/David Bowie - Space Oddity.mp3",
+                "/static/music/De La Soul - Feel Good Inc.mp3", "/static/music/Dexys Midnight Runners - Come On Eileen.mp3",
+                "/static/music/Dragon - April Sun In Cuba.mp3", "/static/music/Dragon - Young Years.mp3",
+                "/static/music/Earth, Wind & Fire - September.mp3", "/static/music/Elton John - Bennie and the Jets.mp3",
+                "/static/music/Elton John - Crocodile Rock.mp3", "/static/music/Elton John - Goodbye Yellow Brick Road.mp3",
+                "/static/music/Elton John - Philadelphia Freedom.mp3", "/static/music/Elton John - Saturday Nights Alright.mp3",
+                "/static/music/Elton John & Taron Egerton - Love Me Again.mp3", "/static/music/Eminem - Survival.mp3",
+                "/static/music/Eminem - Without Me.mp3", "/static/music/Endor - Pump it Up.mp3",
+                "/static/music/Eruope - The Final Countdown.mp3", "/static/music/Eurythmics - Sweet Dreams.mp3",
+                "/static/music/Foster the People - Pumped Up Kicks.mp3", "/static/music/Gesaffelstein Remix - Shockwave.mp3",
+                "/static/music/Gesaffelstein Remix 2 - Shockwave.mp3", "/static/music/Ghostbusters Theme.mp3",
+                "/static/music/Gnarls Barkley - Crazy.mp3", "/static/music/Halogen - U Got That.mp3",
+                "/static/music/Hozier - Take Me To Church.mp3", "/static/music/Imagine Dragons - Radioactive.mp3",
+                "/static/music/Imagine Dragons - Whatever It Takes.mp3", "/static/music/John Wick Soundtrack - Le Castle Vania - John Wick Mode.mp3",
+                "/static/music/John Wick Soundtrack - Le Castle Vania - LED Spirals Extended .mp3", "/static/music/John Wick Soundtrack - Shots Fired (OST John Wick).mp3",
+                "/static/music/Johnny Cash - God's Gonna Cut You Down.mp3", "/static/music/Johnny Cash - I Walk the Line.mp3",
+                "/static/music/Johnny Cash - Ring of Fire.mp3", "/static/music/Justin Timberlake - Sexy Back.mp3",
+                "/static/music/KISS - I Was Made For Loving You.mp3", "/static/music/Lady Gaga - Bad Romance.mp3",
+                "/static/music/Lady Gaga - Poker Face.mp3", "/static/music/Led Zeplin - Black Dog.mp3",
+                "/static/music/Led Zeplin - Immigrant Song.mp3", "/static/music/Fools Garden - Lemon Tree.mp3",
+                "/static/music/Lenny Kravitz - Are You Gonna Go My Way.mp3", "/static/music/Lipps inc - Funky Town.mp3",
+                "/static/music/LMFAO - Party Rock Anthem.mp3", "/static/music/Mackelmore - Can't Hold Us.mp3",
+                "/static/music/Mackelmore - Thrift Shop.mp3", "/static/music/Mark Ronson - Uptown Funk.mp3",
+                "/static/music/Maroon 5 - Moves Like Jagger.mp3", "/static/music/Michael Jackson - Beat It.mp3",
+                "/static/music/One Republic - Counting Stars.mp3", "/static/music/Pink Floyd -Another Brick in the Wall.mp3",
+                "/static/music/Queen - Bicycle Race.mp3", "/static/music/Queen - Bohemian Rhapsody.mp3",
+                "/static/music/Queen - Crazy Little Thing Called Love.mp3", "/static/music/Queen - Don't Stop Me Now.mp3",
+                "/static/music/Queen - Fat Bottomed Girls.mp3", "/static/music/Queen - I Want It All.mp3",
+                "/static/music/Queen - I Want to Break Free.mp3", "/static/music/Queen - Keep Yourself Alive.mp3",
+                "/static/music/Queen - Seven Seas of Rhye.mp3", "/static/music/Queen - Somebody to Love.mp3",
+                "/static/music/Queen - The Show Must Go On.mp3", "/static/music/Queen - Your My Best Friend.mp3",
+                "/static/music/Queen & David Bowie - Under Pressure.mp3", "/static/music/Ram Jam - Black Betty.mp3",
+                "/static/music/Ray Charles - Hit the Road Jack.mp3", "/static/music/Dave Wave - A Friend Like Me Remix.mp3",
+                "/static/music/Dave Wave - Hey Pachuco.mp3", "/static/music/Charle Puth - Betty Boop.mp3",
+                "/static/music/Eric Prydz - Call On Me.mp3", "/static/music/Russian - Bochka, Bass, Kolbaser.mp3",
+                "/static/music/Crazy Frog - Axel F.mp3", "/static/music/Aaron Smith - Dancin Remix.mp3",
+                "/static/music/Riton & Kah-Lo - Fake ID.mp3", "/static/music/Robin Schulz - SUGAR.mp3",
+                "/static/music/Rolling Stones - Gimme Shelter.mp3", "/static/music/Sabaton - Ghost Division.mp3",
+                "/static/music/Sabaton - Panzerkampf.mp3", "/static/music/Sabaton - The Last Stand.mp3",
+                "/static/music/Samuel Jackson - Ezikel 25-17.mp3", "/static/music/Screaming Jets - Better.mp3",
+                "/static/music/Screaming Jets - Shiver.mp3", "/static/music/Sheppard - Coming Home.mp3",
+                "/static/music/Soft Cell - Tainted Love.mp3", "/static/music/Sunset city - Forget It All.mp3",
+                "/static/music/The Champs - Tequila.mp3", "/static/music/Train - Hey, Soul Sister.mp3",
+                "/static/music/Tubthumping - I Get Knocked Down.mp3", "/static/music/Turtles - Happy Together.mp3",
+                "/static/music/Vance Joy - Riptide.mp3", "/static/music/Will.i.am - Scream & Shout.mp3"
+                ]; // List of songs
+                var player = document.getElementById("audioplayer"); // Get audio element
+                player.autoplay=true;
+                player.addEventListener("ended", selectRandom); // Run function when the song ends
+            
+                function selectRandom(){
+                    while(selection == lastSong){ // Repeat until a different song is selected
+                        selection = Math.floor(Math.random() * playlist.length);
+                    }
+                    lastSong = selection; // Remember the last song
+                    player.src = playlist[selection]; // Tell HTML the location of the new song
+                }
+            
+                selectRandom(); // Select initial song
+                player.play(); // Start song
+                var SelectedSongV1 = playlist[selection].replace("/static/music/", "<br> Artist: ");
+                var SelectedSongV2 = SelectedSongV1.replace(" - ","<br> \t Song Name: ");
+                var SelectedSongV3 = SelectedSongV2.replace(".mp3","");
+                var SelectedSongV4 = SelectedSongV3.replace("ACDC","AC/DC");
+                document.write(SelectedSongV4)
+            </script>
+
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    
+
+                    <!-- Your Travel App Name or Logo -->
+                    <a href="/" class="navbar-brand">
+                        My Travel App
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    
+
+                        <!-- Navbar --> 
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo01"> 
+                            <div class="navbar-nav ml-auto"> 
+                                <a class="nav-item nav-link" href="/destinations" style="background-color: rgb(5, 151, 151); border:1px solid black;">Destinations</a>                            
+                                <a class="nav-item nav-link" href="#" style="background-color: rgb(5, 151, 151); border:1px solid black;">Bookings</a>
+                                {% if current_user.is_authenticated %} 
+                                <a class="nav-item nav-link disabled text-muted" href="#" style="background-color: rgb(5, 151, 151); border:1px solid black;"><span>Welcome, {{ current_user.name }}</span></a> 
+                                <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Log Out</a> 
+                                {% else %} 
+                                <a class="nav-item nav-link" href="{{ url_for('auth.register') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Register</a> 
+                                <a class="nav-item nav-link" href="{{ url_for('auth.login') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Log In</a> 
+                                {% endif %} 
+                            </div> 
+                        </div> 
+                </div> 
+            </nav>
+
+            {% block header %}
+            {% endblock %}
+
+        </header>
+
+        {% block content %}
+        {% endblock %}
+
+        <footer class="footer">
+            <div class="text-center py-2 bg-light">
+                <span class="text-dark">Copyright &copy; 2021</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
