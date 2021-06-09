@@ -125,13 +125,14 @@
                         <!-- Navbar --> 
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo01"> 
                             <div class="navbar-nav ml-auto"> 
-                                <a class="nav-item nav-link" href="/destinations" style="background-color: rgb(5, 151, 151); border:1px solid black;">Destinations</a>                            
+                                <a class="nav-item nav-link" href="/events" style="background-color: rgb(5, 151, 151); border:1px solid black;">Destinations</a>                            
                                 <a class="nav-item nav-link" href="#" style="background-color: rgb(5, 151, 151); border:1px solid black;">Bookings</a>
                                 {% if current_user.is_authenticated %} 
                                 <a class="nav-item nav-link disabled text-muted" href="#" style="background-color: rgb(5, 151, 151); border:1px solid black;"><span>Welcome, {{ current_user.name }}</span></a> 
                                 <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Log Out</a> 
                                 {% else %} 
-                                <a class="nav-item nav-link" href="{{ url_for('auth.register') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Register</a> 
+                                <a class="nav-item nav-link" href="{{ url_for('auth.customerregister') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Register as Customer</a> 
+                                <a class="nav-item nav-link" href="{{ url_for('auth.adminregister') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Register as Admin</a> 
                                 <a class="nav-item nav-link" href="{{ url_for('auth.login') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Log In</a> 
                                 {% endif %} 
                             </div> 
