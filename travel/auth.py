@@ -20,7 +20,6 @@ def login():
         username = login_form.username.data
         password = login_form.password.data
         u1 = Customer.query.filter_by(name=username).first()
-        u2 = Administrator.query.filter_by(name=username).first()
         if u1 is None:
             error='Incorrect user name'
         #check the password - notice password hash function
