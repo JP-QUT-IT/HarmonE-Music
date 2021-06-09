@@ -17,18 +17,11 @@ class Customer(db.Model, UserMixin):
 class Administrator(db.Model, UserMixin):
     __tablename__='admins' # good practice to specify table name
     id = db.Column(db.Integer, primary_key=True)
-    CompanyName = db.Column(db.String(100), index=True, unique=True, nullable=False)
-    CompanyURL = db.Column(db.String(100), index=True, nullable=False)
+    name = db.Column(db.String(100), index=True, unique=True, nullable=False)
     emailid = db.Column(db.String(100), index=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
 
     events = db.relationship('MusicEvent', backref='admin')
-
-class Status(enum.Enum):
-    Upcoming = "UPCOMING"
-    Inactive = "INACTIVE"
-    Booked = "BOOKED"
-    Cancelled = "CANCELLED"
 
 class MusicEvent(db.Model):
     __tablename__ = 'events'
@@ -42,7 +35,7 @@ class MusicEvent(db.Model):
     EventStart = db.Column(db.String(200), index=True, nullable=False)
     EventEnd = db.Column(db.String(200), index=True, nullable=False)
     EventTickets = db.Column(db.Integer, index=True, nullable=False)
-    EventStatus = db.Column(db.Enum(Status))
+    EventStatus = db.Column(db.String(200), index=True, nullable=False)
 
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
