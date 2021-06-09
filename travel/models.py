@@ -1,62 +1,64 @@
+from . import db
+import enum
 from datetime import datetime
 from flask_login import UserMixin
-from . import db
 
-# Customer Table
+
+
 class Customer(db.Model, UserMixin):
-    __tablename__='customer'
+    __tablename__='customers' # good practice to specify table name
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), index=True, unique=True, nullable=False)
-    email = db.Column(db.String(100), index=True, nullable=False)
-	
+    emailid = db.Column(db.String(100), index=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
-    authenticated = db.Column(db.Boolean, index=True, default=False, nullable=False)
 
-    def __repr__(self):
-        return "<ID: {}, Name: {}, EmailID: {}, pwdhash: {}>".format(self.id, self.name, self.email, self.password_hash)
-    
-    def is_active(self):
-        # All Users would be active
-        return True
+    comments = db.relationship('Comment', backref='customers')
 
-    comments = db.relationship('Comment', backref='user')
-
-
-# Administrator Table
-class Administrator(db.Model):
-    __tablename__='administrator'
+class Administrator(db.Model, UserMixin):
+    __tablename__='admins' # good practice to specify table name
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), index=True, unique=True, nullable=False)
-    email = db.Column(db.String(100), index=True, nullable=False)
-
+    CompanyName = db.Column(db.String(100), index=True, unique=True, nullable=False)
+    CompanyURL = db.Column(db.String(100), index=True, nullable=False)
+    emailid = db.Column(db.String(100), index=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
-    authenticated = db.Column(db.Boolean, index=True, default=False, nullable=False)
 
+    events = db.relationship('MusicEvent', backref='admin')
 
-class Destination(db.Model):
-    __tablename__='destinations'
+class Status(enum.Enum):
+    Upcoming = "UPCOMING"
+    Inactive = "INACTIVE"
+    Booked = "BOOKED"
+    Cancelled = "CANCELLED"
+
+class MusicEvent(db.Model):
+    __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    description = db.Column(db.String(400))
-    image = db.Column(db.String(400))
-    currency = db.Column(db.String(3))
-    destinations = db.Column('destinations', db.String, db.ForeignKey('tbldestinations.destinations'))
+    EventName = db.Column(db.String(100), index=True, nullable=False)
+    EventCreator = db.Column(db.Integer, db.ForeignKey('admins.id'))
+    EventImage = db.Column(db.String(400), index=True, nullable=False)
+    EventGenre = db.Column(db.String(100), index=True, nullable=False)
+    EventDescription = db.Column(db.String(200), index=True, nullable=False)
+    EventVenue = db.Column(db.String(200), index=True, nullable=False)
+    EventStart = db.Column(db.String(200), index=True, nullable=False)
+    EventEnd = db.Column(db.String(200), index=True, nullable=False)
+    EventTickets = db.Column(db.Integer, index=True, nullable=False)
+    EventStatus = db.Column(db.Enum(Status))
 
-    # Uppercase fk class, backref = lowercase current class
-    comments = db.relationship('Comments', backref='destination')
+    # ... Create the Comments db.relationship
+	# relation to call destination.comments and comment.destination
+    comments = db.relationship('Comment', backref='events')
 
-    def __repr__(self):
-        return f'Name: {self.name}\nDescription: {self.description}\nImage url: {self.image}\nCurrency: {self.currency}\n'
+    def __repr__(self): #string print method
+        return "<Name: {}>".format(self.name)
 
 class Comment(db.Model):
+    __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(400))
     created_at = db.Column(db.DateTime, default=datetime.now())
-
-    # Foreign Keys
-    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
-    administrator_id = db.Column(db.Integer, db.ForeignKey('administrator.id'))
-    destination_id = db.Column(db.Integer, db.ForeignKey('destination.id'))
+    #add the foreign keys
+    customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
     def __repr__(self):
-        return f'User: {self.user},\nText: {self.text}\nCreated at: {self.created_at}\n'
+        return "<Comment: {}>".format(self.text)
