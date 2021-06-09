@@ -26,8 +26,7 @@ def create():
   if(form.validate_on_submit()):
     db_file_path=check_upload_file(form)
     event=MusicEvent(
-    EventName=form.name.data, 
-    EventCreator=current_user, 
+    EventName=form.name.data,  
     EventImage=db_file_path,
     EventDescription=form.description.data,
     EventVenue=form.venue.data,
@@ -95,6 +94,8 @@ import os
 from werkzeug.utils import secure_filename
 
   # a new function
+
+  
 def check_upload_file(form):
   fp=form.image.data
   filename=fp.filename
