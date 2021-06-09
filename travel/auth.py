@@ -23,17 +23,21 @@ def login():
         u2 = Administrator.query.filter_by(name=username).first()
         if u1 is None:
             error='Incorrect user name'
+        elif u2 is None:
+            error='Incorrect user name'
         #check the password - notice password hash function
         elif not check_password_hash(u1.password_hash, password): # takes the hash and password
             error='Incorrect password'
-        if u2 is None:
-            error='Incorrect user name'
-        #check the password - notice password hash function
         elif not check_password_hash(u2.password_hash, password): # takes the hash and password
             error='Incorrect password'
+
         if error is None:
             #all good, set the login_user of flask_login to manage the user
             login_user(u1)
+            return redirect(url_for('main.index'))
+        elif error is None:
+            #all good, set the login_user of flask_login to manage the user
+            login_user(u2)
             return redirect(url_for('main.index'))
         else:
             flash(error)
