@@ -3,7 +3,7 @@ from flask import (
 ) 
 from werkzeug.security import generate_password_hash,check_password_hash
 from .models import Customer, Administrator
-from .forms import LoginForm, CustomerRegisterForm, AdminRegisterForm
+from .forms import LoginForm, RegisterForm
 from flask_login import login_user, login_required, logout_user
 from . import db
 
@@ -36,7 +36,7 @@ def login():
 
 @bp.route('/customerregister', methods=['GET','POST'])
 def customerregister():
-    register = CustomerRegisterForm()
+    register = RegisterForm()
     #the validation of form submis is fine
     if (register.validate_on_submit() == True):
             #get username, password and email from the form
@@ -62,7 +62,7 @@ def customerregister():
 
 @bp.route('/adminregister', methods=['GET','POST'])
 def adminregister():
-    register = AdminRegisterForm()
+    register = RegisterForm()
     #the validation of form submis is fine
     if (register.validate_on_submit() == True):
             #get username, password and email from the form

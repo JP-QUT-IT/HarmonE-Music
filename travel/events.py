@@ -2,7 +2,7 @@ import re
 from flask import ( 
     Blueprint, app, flash, render_template, request, url_for, redirect
 ) 
-from .models import MusicEvent, Comment, Customer, Administrator, Status
+from .models import MusicEvent, Comment, Customer, Administrator
 from .forms import CommentForm, EventForm, EditEventForm
 from flask_login import login_required, current_user
 from . import db
