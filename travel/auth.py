@@ -20,10 +20,16 @@ def login():
         username = login_form.username.data
         password = login_form.password.data
         u1 = Customer.query.filter_by(name=username).first()
+        u2 = Administrator.query.filter_by(name=username).first()
         if u1 is None:
             error='Incorrect user name'
         #check the password - notice password hash function
         elif not check_password_hash(u1.password_hash, password): # takes the hash and password
+            error='Incorrect password'
+        if u2 is None:
+            error='Incorrect user name'
+        #check the password - notice password hash function
+        elif not check_password_hash(u2.password_hash, password): # takes the hash and password
             error='Incorrect password'
         if error is None:
             #all good, set the login_user of flask_login to manage the user
@@ -69,15 +75,15 @@ def adminregister():
             pwd = register.password.data
             email=register.email.data
             #check if a user exists
-            u1 = Customer.query.filter_by(name=uname).first()
-            if u1:
+            u2 = Administrator.query.filter_by(name=uname).first()
+            if u2:
                 flash('User name already exists, please login')
                 return redirect(url_for('auth.login'))
             # don't store the password - create password hash
             pwd_hash = generate_password_hash(pwd)
             #create a new user model object
-            new_customer = Customer(name=uname, password_hash=pwd_hash, emailid=email)
-            db.session.add(new_customer)
+            new_administrator = Administrator(name=uname, password_hash=pwd_hash, emailid=email)
+            db.session.add(new_administrator)
             db.session.commit()
             #commit to the database and redirect to HTML page
             return redirect(url_for('main.index'))
