@@ -40,7 +40,7 @@ class CommentForm(FlaskForm):
     submit = SubmitField('Post')
 
 class LoginForm(FlaskForm):
-    companyname = StringField('Username',validators=[InputRequired("Please enter your username")])
+    username = StringField('Username',validators=[InputRequired("Please enter your username")])
     password = PasswordField('Password', validators=[InputRequired()])
     submit = SubmitField('Login')
 
