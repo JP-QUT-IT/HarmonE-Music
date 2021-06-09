@@ -26,15 +26,15 @@ def create():
   if(form.validate_on_submit()):
     db_file_path=check_upload_file(form)
     event=MusicEvent(
-      EventName=form.name.data, 
-      EventCreator=current_user, 
-      EventImage=db_file_path,
-      EventDescription=form.description.data,
-      EventVenue=form.venue.data,
-      EventStart=form.start.data,
-      EventEnd=form.end.data,
-      EventTickets=form.tickets.data,
-      EventStatus=form.status.data)
+    EventName=form.name.data, 
+    EventCreator=current_user, 
+    EventImage=db_file_path,
+    EventDescription=form.description.data,
+    EventVenue=form.venue.data,
+    EventStart=form.start.data,
+    EventEnd=form.end.data,
+    EventTickets=form.tickets.data,
+    EventStatus=form.status.data)
     
     db.session.add(event)
     db.session.commit()
@@ -101,6 +101,6 @@ def check_upload_file(form):
   BASE_PATH=os.path.dirname(__file__)
 
   upload_path=os.path.join(BASE_PATH,'static/image',secure_filename(filename))
-  db_upload_path='/static/image/' + secure_filename(filename)
+  db_upload_path='static/image/' + secure_filename(filename)
   fp.save(upload_path)
   return db_upload_path
