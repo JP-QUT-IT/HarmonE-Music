@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
-from .models import Destination
+from .models import MusicEvent
 
 mainbp = Blueprint('main', __name__)
 
 @mainbp.route('/')
 def index():
-    destinations = Destination.query.all()
-    return render_template('index.html', destinations=destinations)
+    events = MusicEvent.query.all()
+    return render_template('index.html', events=events)
     if 'email' in session and session['email'] is not None:
         # print(session['email'])
         message = "<h1>Hello " + session['email'] + "</h1>"
@@ -14,20 +14,20 @@ def index():
         message = '<h1>HELLO</h1>'
     return message
 
-@mainbp.route('/destinations')
-def destinations():
-    destinations = Destination.query.all()
-    return render_template('destinations.html', destinations=destinations)
+@mainbp.route('/events')
+def events():
+    events = MusicEvent.query.all()
+    return render_template('events.html', events=events)
 
 # route to allow users to search
 @mainbp.route('/search')  
 def search():
 #get the search string from request  
     if request.args['search']:
-        dest = "%" + request.args['search'] + '%'
+        evnt = "%" + request.args['search'] + '%'
 #use filter and like function to search for matching destinations  
-        destinations = Destination.query.filter(Destination.name.like(dest)).all()  
+        events = MusicEvent.query.filter(MusicEvent.name.like(evnt)).all()  
         #render index.html with few destinations
-        return render_template('index.html', destinations=destinations)
+        return render_template('index.html', events=events)
     else:
         return redirect(url_for('main.index'))
