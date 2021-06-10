@@ -1,33 +1,35 @@
+from flask import app
 from . import db
-import enum
 from datetime import datetime
 from flask_login import UserMixin
+from flask_user import UserManager
 
-
-
-class Customer(db.Model, UserMixin):
-    __tablename__='customers' # good practice to specify table name
+class User(db.Model, UserMixin):
+    __tablename__='users' # good practice to specify table name
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), index=True, unique=True, nullable=False)
     emailid = db.Column(db.String(100), index=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
 
-    comments = db.relationship('Comment', backref='customers')
+    roles = db.relationship('Role', secondary='user_roles')
+    comments = db.relationship('Comment', backref='users')
 
-class Administrator(db.Model, UserMixin):
-    __tablename__='admins' # good practice to specify table name
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), index=True, unique=True, nullable=False)
-    emailid = db.Column(db.String(100), index=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)
+class Role(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(50), unique=True)
 
-    events = db.relationship('MusicEvent', backref='admin')
+class UserRoles(db.Model):
+    __tablename__ = 'user_roles'
+    id = db.Column(db.Integer(), primary_key=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
+    role_id = db.Column(db.Integer(), db.ForeignKey('roles.id', ondelete='CASCADE'))
 
 class MusicEvent(db.Model):
     __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
     EventName = db.Column(db.String(100), index=True, nullable=False)
-    EventCreator = db.Column(db.Integer, db.ForeignKey('admins.id'))
+    EventCreator = db.Column(db.Integer, db.ForeignKey('users.id'))
     EventImage = db.Column(db.String(400), index=True, nullable=False)
     EventGenre = db.Column(db.String(100), index=True, nullable=False)
     EventDescription = db.Column(db.String(200), index=True, nullable=False)
@@ -50,7 +52,7 @@ class Comment(db.Model):
     text = db.Column(db.String(400))
     created_at = db.Column(db.DateTime, default=datetime.now())
     #add the foreign keys
-    customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
     def __repr__(self):

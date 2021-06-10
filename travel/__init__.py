@@ -1,7 +1,7 @@
 from flask import Flask 
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager 
+from flask_login import LoginManager
 
 db=SQLAlchemy()
 
@@ -21,15 +21,10 @@ def create_app():
     login_manager.login_view='auth.login'  
     login_manager.init_app(app)
 
-    from .models import Customer 
+    from .models import User
     @login_manager.user_loader  
-    def load_customer(customer_id):
-        return Customer.query.get(int(customer_id))
-
-    from .models import Administrator 
-    @login_manager.user_loader  
-    def load_admin(admin_id):
-        return Administrator.query.get(int(admin_id))
+    def load_user(user_id):
+        return User.query.get(int(user_id))
 
     from . import views
     app.register_blueprint(views.mainbp)

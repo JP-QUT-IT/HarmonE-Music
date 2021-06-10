@@ -2,10 +2,11 @@ import re
 from flask import ( 
     Blueprint, app, flash, render_template, request, url_for, redirect
 ) 
-from .models import MusicEvent, Comment, Customer, Administrator
+from .models import MusicEvent, Comment, User
 from .forms import CommentForm, EventForm, EditEventForm
 from flask_login import login_required, current_user
 from . import db
+from flask_user import roles_required
 
 #create a blueprint
 bp = Blueprint('event', __name__, url_prefix='/events')
@@ -20,6 +21,7 @@ def show(id):
 
 @bp.route('/create', methods=['GET','POST'])
 @login_required
+@roles_required('Admin')
 def create():
   print('Method type: ', request.method)
   form = EventForm()
@@ -42,6 +44,7 @@ def create():
 
 @bp.route('/edit/<id>', methods=['GET', 'POST'])
 @login_required
+@roles_required('Admin')
 def edit(id):
   selectedEvent = MusicEvent.query.filter_by(id = id).first()
   form = EditEventForm(name=selectedEvent)
@@ -70,7 +73,8 @@ def edit(id):
   return render_template('events/edit.html', form=form)
 
 
-@bp.route('/<event>/comment', methods = ['GET', 'POST'])  
+@bp.route('/<event>/comment', methods = ['GET', 'POST'])
+@roles_required('Customer')  
 def comment(event):  
     form = CommentForm()  
     #get the destination object associated to the page and the comment
