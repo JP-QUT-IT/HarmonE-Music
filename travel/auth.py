@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from .models import User, UserRoles, Role
 from .forms import LoginForm, RegisterForm
 from flask_login import login_user, login_required, logout_user
+from .views import customer_role, admin_role
 from . import db
 
 

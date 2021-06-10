@@ -1,7 +1,11 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
-from .models import MusicEvent
+from .models import MusicEvent, Role
+from . import db
 
 mainbp = Blueprint('main', __name__)
+
+admin_role = Role(name='Admin')
+customer_role = Role(name='Customer')
 
 @mainbp.route('/')
 def index():
