@@ -24,7 +24,7 @@ body{
 }
 /* Background Image for Content */
 .site-content{
-    background-image: url('Images/Sheet\ Music.jpg');
+    background-image: url('Images/Sheet Music.jpg');
     background-attachment: fixed;
     background-size: cover;
 }
