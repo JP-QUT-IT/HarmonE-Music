@@ -2,7 +2,7 @@ from flask import app
 from . import db
 from datetime import datetime
 from flask_login import UserMixin
-from flask_user import UserManager
+
 
 class User(db.Model, UserMixin):
     __tablename__='users' # good practice to specify table name

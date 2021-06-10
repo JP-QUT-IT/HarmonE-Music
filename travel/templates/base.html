@@ -85,7 +85,7 @@
                 "/static/music/Vance Joy - Riptide.mp3", "/static/music/Will.i.am - Scream & Shout.mp3"
                 ]; // List of songs
                 var player = document.getElementById("audioplayer"); // Get audio element
-                player.autoplay=true;
+                player.autoplay=false;
                 player.addEventListener("ended", selectRandom); // Run function when the song ends
             
                 function selectRandom(){

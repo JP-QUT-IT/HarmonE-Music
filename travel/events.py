@@ -2,7 +2,7 @@ import re
 from flask import ( 
     Blueprint, app, flash, render_template, request, url_for, redirect
 ) 
-from .models import MusicEvent, Comment, User
+from .models import MusicEvent, Comment
 from .forms import CommentForm, EventForm, EditEventForm
 from flask_login import login_required, current_user
 from . import db
@@ -20,8 +20,8 @@ def show(id):
 
 
 @bp.route('/create', methods=['GET','POST'])
-@login_required
 @roles_required('Admin')
+@login_required
 def create():
   print('Method type: ', request.method)
   form = EventForm()
