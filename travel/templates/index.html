@@ -23,15 +23,15 @@
     <div class="container">
          <!-- justified in the center, margin top and bottom and the column contains a 10 grid -->
     
-        {% if destinations %}
+        {% if events %}
         <div class="row justify-content-center">
-        {% for destination in destinations %}
+        {% for event in events %}
           <div class="card mb-5 mr-5 px-0 col-md-3">
             <img class="card-img-top" height="200rem" src="{{event.image}}" alt="{{event.name}}">
             <div class="card-body">
               <h5 class="card-title">{{event.name}}</h5>
               <p class="card-text">{{event.description}}</p>
-              <a href="{{url_for('event.show', id=destination.id)}}" class="btn btn-danger">View Details</a>
+              <a href="{{url_for('event.show', id=event.id)}}" class="btn btn-danger">View Details</a>
               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
           </div>

@@ -37,6 +37,7 @@ def create():
     EventName=form.name.data, 
     EventCreator=current_user.name,
     EventImage=db_file_path, 
+    EventGenre=form.genre.data,
     EventDescription=form.description.data, 
     EventVenue=form.venue.data, 
     EventStart=form.start.data, 
@@ -57,6 +58,7 @@ def edit(id):
     db_file_path=check_upload_file(form)
     selectedEvent.EventName=form.name.data
     selectedEvent.EventImage=db_file_path
+    selectedEvent.EventGenre=form.genre.data
     selectedEvent.EventDescription=form.description.data
     selectedEvent.EventVenue=form.venue.data
     selectedEvent.EventStart=form.start.data
@@ -109,7 +111,7 @@ def check_upload_file(form):
   filename=fp.filename
   BASE_PATH=os.path.dirname(__file__)
 
-  upload_path=os.path.join(BASE_PATH,'static/image',secure_filename(filename))
-  db_upload_path='static/image/' + secure_filename(filename)
+  upload_path=os.path.join(BASE_PATH,'static/images',secure_filename(filename))
+  db_upload_path='/static/images/' + secure_filename(filename)
   fp.save(upload_path)
   return db_upload_path

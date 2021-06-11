@@ -43,6 +43,8 @@ def register():
             uname =register.username.data
             pwd = register.password.data
             email=register.email.data
+            contact=register.contact_number.data
+            addresss=register.address.data
             role = register.usertype.data
             #check if a user exists
             u1 = User.query.filter_by(name=uname).first()
@@ -52,7 +54,7 @@ def register():
             # don't store the password - create password hash
             pwd_hash = generate_password_hash(pwd)
             #create a new user model object
-            new_cust = User(name=uname, password_hash=pwd_hash, emailid=email, role=role)
+            new_cust = User(name=uname, password_hash=pwd_hash, emailid=email, contactnumber=contact, addres=addresss, role=role)
             db.session.add(new_cust)
             db.session.commit()
             #commit to the database and redirect to HTML page

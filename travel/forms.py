@@ -47,6 +47,8 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired()])
     email = StringField('Email', validators=[Email("Please enter an email address")])
+    contact_number = StringField('Contact_Numer', validators=[InputRequired()])
+    address = StringField('Address', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired(),
         EqualTo('confirm', message="Passwords should match")])
     confirm = PasswordField("Confirm Password")
