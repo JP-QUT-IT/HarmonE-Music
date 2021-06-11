@@ -17,7 +17,7 @@ def index():
 
 @mainbp.route('/Forbidden')
 def Forbidden():
-    return render_template('Forbidden.html')
+    return render_template('Error_Handling/Forbidden.html')
 
 @mainbp.route('/events')
 def events():
