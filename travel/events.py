@@ -21,8 +21,11 @@ def show(id):
 @bp.route('/create', methods=['GET','POST'])
 @login_required
 def create():
+
   if (current_user.role == 'admin'):
     pass
+  elif (current_user.role == 'customer'):
+    return redirect('/Forbidden')
   else:
     return redirect('/Forbidden')
   
@@ -32,7 +35,7 @@ def create():
     db_file_path=check_upload_file(form)
     event=MusicEvent(
     EventName=form.name.data, 
-    EventCreator=current_user,
+    EventCreator=current_user.name,
     EventImage=db_file_path, 
     EventDescription=form.description.data, 
     EventVenue=form.venue.data, 

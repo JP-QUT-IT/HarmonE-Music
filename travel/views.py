@@ -15,6 +15,10 @@ def index():
         message = '<h1>HELLO</h1>'
     return message
 
+@mainbp.route('/Forbidden')
+def Forbidden():
+    return render_template('Forbidden.html')
+
 @mainbp.route('/events')
 def events():
     events = MusicEvent.query.all()
