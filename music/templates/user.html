@@ -1,38 +1,152 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block content %}
-<div class="container-fluid">
-    <h4>{{heading}}</h4>
-</div>
 
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<!-- check if there are any messages -->
-<div class="container-fluid">
-    <div class="row mt-3 mb-3">
-        <div class="col-md-12">
-            {% for message in messages %}
-            <!--loop through the messages-->
-            <div class="alert alert-info">{{ message }}</div>
-            <!--display as alert-->
-            {% endfor %}
+{% block content %}
+<div class="container p-5">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="d-flex flex-column align-content-center container-fluid py-5">
+
+            <h1 class="display-5 fw-bold mb-5">{{heading}}</h1>
+
+            {% if heading|lower =='login' %}
+            <form action="" method="post" class="form" role="form">
+                {{ form.csrf_token() }}
+
+                <div class="row mb-2">
+                    <div class="form-group">
+                        {{ wtf.form_field(form.username, class='form-control', placeholder="Username") }}
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="form-group">
+                        {{ wtf.form_field(form.password, class='form-control', placeholder="Password") }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg my-4">Submit</button>
+
+            </form>
+
+            {% elif heading|lower == 'register' %}
+
+            <form action="" method="post" class="form row justify-content-between" role="form">
+                {{ form.csrf_token() }}
+
+                <section class="regSection1 col-md-6 pt-5">
+                    <div class="row mb-2">
+                        <div class="form-group">
+                            {{ wtf.form_field(form.username, class='form-control', placeholder="Username") }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="form-group">
+                            {{ wtf.form_field(form.email, class='form-control', placeholder="Email") }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="form-group">
+                            {{ wtf.form_field(form.contact_number, class='form-control', placeholder="Contact Number")
+                            }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="form-group">
+                            {{ wtf.form_field(form.address, class='form-control', placeholder="Address")
+                            }}
+                        </div>
+                    </div>
+                </section>
+
+                <section class="regSection1 col-md-6 pt-5">
+                    <div class="row mb-2">
+                        <div class="form-group">
+                            {{ wtf.form_field(form.password, class='form-control', placeholder="Password") }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="form-group">
+                            {{ wtf.form_field(form.confirm, class='form-control', placeholder="Confirm Password") }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="form-group">
+                            {{ wtf.form_field(form.password, class='form-control', placeholder="Password") }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="form-group">
+                            {{ wtf.form_field(form.usertype, class='form-control', placeholder="Type of User") }}
+                        </div>
+                    </div>
+                </section>
+
+
+                <button type="submit" class="btn btn-primary btn-lg mt-5">Submit</button>
+
+            </form>
+
+            {% endif %}
+            <!-- if displaying login page, display prompt to register, otherwise don't display this message -->
+            {% if heading|lower =='login' %}
+            <div class="col-md-4 ml-5">
+                <p>New customer? <a href="{{ url_for('auth.register') }}">Click here to register as customer</a>.</p>
+            </div>
+            {% endif %}
+
+
+            <!-- replaced quickform with formatted form segments -->
+            <!-- <p class="col-md-8 fs-4">{{wtf.quick_form(form)}}</p> -->
+
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <!-- check if there are any messages -->
+            <div class="container-fluid">
+                <div class="row mt-3 mb-3">
+                    <div class="col-md-12">
+                        {% for message in messages %}
+                        <!--loop through the messages-->
+                        <div class="alert alert-info">{{ message }}</div>
+                        <!--display as alert-->
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endwith %}
+
+
         </div>
     </div>
-</div>
-{% endif %}
-{% endwith %}
 
-<!-- Form rendering is simple and easy if using bootstrap -->
-<div class="col-md-6 ml-5">
-    {{wtf.quick_form(form)}}
 </div>
 
-<!-- When you have login form, then do show the user a link to register -->
-{% if heading|lower =='login' %}
-<div class="col-md-4 mb-5 ml-5">
-    <p>New customer? <a href="{{ url_for('auth.register') }}">Click here to register as customer</a>.</p>
+
+
+
+
+
+
+
+
+
+<div class="container-fluid pt-3">
+    <h4></h4>
+
+
+
+
+    <!-- Form rendering is simple and easy if using bootstrap -->
+
+    <!-- what form is this referencing? -->
+
+    <div class="col-md-6 ml-5">
+
+    </div>
+
+    <!-- When you have login form, then do show the user a link to register -->
+
 </div>
-{% endif %}
 </div>
 {% endblock %}

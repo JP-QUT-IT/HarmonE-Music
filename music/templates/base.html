@@ -14,16 +14,15 @@
 <body class="d-flex flex-column site-content">
 
     <!-- Header -->
-    <header">
+    <header>
 
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg bg-secondary">
-
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
             <div class="container">
 
                 <!-- Logo -->
                 <a class="navbar-brand" style="color: gold;" href="/">
-                    <img src="static\css\images\harmonElogo.png" style="width:40px;height:40px;"> HarmonE Music</a>
+                    <img src="static\images\harmonElogo.png" style="width:40px;height:40px;"> HarmonE Music</a>
 
                 <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNav" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -32,7 +31,7 @@
                 </button>
 
                 <!-- Navbar -->
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <section class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <div class="navbar-nav">
                         <a class="nav-item nav-link active" href="/">Home</a>
                         <a class="nav-item nav-link" href="/events">Events</a>
@@ -48,12 +47,13 @@
                         <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
 
                         {% else %}
-                        <a class="nav-item nav-link" href="{{ url_for('auth.register') }}">Customer Sign Up</a>
+                        <a class="nav-item nav-link" href="{{ url_for('auth.register') }}">Sign Up</a>
                         <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Log In</a>
                         {% endif %}
 
                     </div>
-                </div>
+                </section>
+
             </div>
         </nav>
 
@@ -70,21 +70,21 @@
         {% block header %}
         {% endblock %}
 
-        </header>
+    </header>
 
-        {% block content %}
-        {% endblock %}
+    {% block content %}
+    {% endblock %}
 
-        <footer class="footer">
-            <div class="text-center py-2 bg-light">
-                <span class="text-dark">Copyright &copy; 2021</span>
-            </div>
-        </footer>
+    <footer class="footer mt-auto">
+        <div class="text-center py-2 bg-dark">
+            <span class="text-light">Copyright &copy; 2021</span>
         </div>
+    </footer>
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
