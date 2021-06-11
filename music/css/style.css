@@ -23,11 +23,13 @@ body{
     color:gold !important;
 }
 /* Background Image for Content */
-.site-content{
-    background-image: url('Images/Sheet Music.jpg');
-    background-attachment: fixed;
-    background-size: cover;
+.gradientbackgr {
+  background: linear-gradient(
+          45deg,
+          #1decc5b3,
+          #5b0ed6b3 100%)
 }
+
 /* Description Colour and Type of Font */
 .site-title, .site-desc{
     color:white;
@@ -87,7 +89,7 @@ body{
 
 /* Section 2 Stylings */
 .section-2 .container-fluid{
-    background-image: url('images/Sheet Music.jpg');
+    background-image: url('/images/sheetmusic.jpg');
     background-size: cover;
     background-attachment: fixed;
 }
