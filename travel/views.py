@@ -1,11 +1,8 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
-from .models import MusicEvent, Role
+from .models import MusicEvent
 from . import db
 
 mainbp = Blueprint('main', __name__)
-
-admin_role = Role(name='Admin')
-customer_role = Role(name='Customer')
 
 @mainbp.route('/')
 def index():
@@ -24,14 +21,27 @@ def events():
     return render_template('events.html', events=events)
 
 # route to allow users to search
-@mainbp.route('/search')  
-def search():
+@mainbp.route('/searchtitle')  
+def searchtitle():
 #get the search string from request  
-    if request.args['search']:
-        evnt = "%" + request.args['search'] + '%'
+    if request.args['searchtitle']:
+        evnt = "%" + request.args['searchtitle'] + '%'
 #use filter and like function to search for matching destinations  
         events = MusicEvent.query.filter(MusicEvent.name.like(evnt)).all()  
         #render index.html with few destinations
         return render_template('index.html', events=events)
+    else:
+        return redirect(url_for('main.index'))
+
+# route to allow users to search
+@mainbp.route('/searchgenre')  
+def searchgenre():
+#get the search string from request  
+    if request.args['searchgenre']:
+        evnt = "%" + request.args['searchgenre'] + '%'
+#use filter and like function to search for matching destinations  
+        events = MusicEvent.query.filter(MusicEvent.name.like(evnt)).all()  
+        #render index.html with few destinations
+        return render_template('events.html', events=events)
     else:
         return redirect(url_for('main.index'))

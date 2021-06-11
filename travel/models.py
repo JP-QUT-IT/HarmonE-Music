@@ -1,4 +1,5 @@
 from flask import app
+from flask_sqlalchemy import SQLAlchemy
 from . import db
 from datetime import datetime
 from flask_login import UserMixin
@@ -10,20 +11,11 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(100), index=True, unique=True, nullable=False)
     emailid = db.Column(db.String(100), index=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
+    role = db.Column(db.String(200), index=True, nullable=False)
 
-    roles = db.relationship('Role', secondary='user_roles')
+    events = db.relationship('MusicEvent', backref='users')
     comments = db.relationship('Comment', backref='users')
 
-class Role(db.Model):
-    __tablename__ = 'roles'
-    id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(50), unique=True)
-
-class UserRoles(db.Model):
-    __tablename__ = 'user_roles'
-    id = db.Column(db.Integer(), primary_key=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
-    role_id = db.Column(db.Integer(), db.ForeignKey('roles.id', ondelete='CASCADE'))
 
 class MusicEvent(db.Model):
     __tablename__ = 'events'

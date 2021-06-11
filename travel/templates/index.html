@@ -6,8 +6,8 @@
          <div class="row justify-content-center mt-1 pb-5">
             <div class="col-md-12">
                <div class="card shadow p-5" style="background-color:rgb(145, 145, 145);width: 100%;">
-                  <h1 class="text-center ">Search Events</h1>
-              <form class="form-inline d-flex flex-nowrap" action="{{url_for('main.search')}}" >
+                  <h1 class="text-center ">Search Via Event Title</h1>
+              <form class="form-inline d-flex flex-nowrap" action="{{url_for('main.searchtitle')}}" >
                 <input type="text" name="search" class="form-control flex-grow-1 my-1 mr-sm-2" id="inlineFormCustomSelectPref">
                 <button type="submit" class="flex-shrink-1 btn btn-primary my-1">Search</button>
               </form>
@@ -27,11 +27,11 @@
         <div class="row justify-content-center">
         {% for destination in destinations %}
           <div class="card mb-5 mr-5 px-0 col-md-3">
-            <img class="card-img-top" height="200rem" src="{{destination.image}}" alt="{{destination.name}}">
+            <img class="card-img-top" height="200rem" src="{{event.image}}" alt="{{event.name}}">
             <div class="card-body">
-              <h5 class="card-title">{{destination.name}}</h5>
-              <p class="card-text">{{destination.description}}</p>
-              <a href="{{url_for('destination.show', id=destination.id)}}" class="btn btn-danger">View Details</a>
+              <h5 class="card-title">{{event.name}}</h5>
+              <p class="card-text">{{event.description}}</p>
+              <a href="{{url_for('event.show', id=destination.id)}}" class="btn btn-danger">View Details</a>
               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
           </div>

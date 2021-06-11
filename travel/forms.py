@@ -50,4 +50,5 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired(),
         EqualTo('confirm', message="Passwords should match")])
     confirm = PasswordField("Confirm Password")
+    usertype = SelectField('Type of User', choices=[('admin', 'ADMIN'), ('customer', 'CUSTOMER')])
     submit = SubmitField('Register As Customer')

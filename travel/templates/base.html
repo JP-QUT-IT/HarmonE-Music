@@ -14,7 +14,7 @@
     <div class="p-3 mb-2">
         <!-- Header -->
         <header class="border-bottom">
-            <audio id="audioplayer" controls style="background-color:rgb(59, 59, 59);"> <!-- Remove the "Controls" Attribute if you don't want the visual controls -->
+            <audio  controls style="background-color:rgb(59, 59, 59);"> <!-- Remove the "Controls" Attribute if you don't want the visual controls -->
             </audio>
             <button style= "background-color:rgb(59, 59, 59);color: gold;" onclick="SongIdentity(SelectedSongV4)">What Song is This?</button>
             <script>
@@ -128,13 +128,16 @@
                             <div class="navbar-nav ml-auto"> 
                                 <a class="nav-item nav-link" href="/events" style="background-color: rgb(5, 151, 151); border:1px solid black;">Events</a>                            
                                 <a class="nav-item nav-link" href="#" style="background-color: rgb(5, 151, 151); border:1px solid black;">Bookings</a>
-                                {% if current_user.is_authenticated %} 
+                                {% if current_user.is_authenticated and current_user.role=="admin" %} 
                                 <a class="nav-item nav-link disabled text-muted" href="#" style="background-color: rgb(5, 151, 151); border:1px solid black;"><span>Welcome, {{ current_user.name }}</span></a> 
                                 <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Log Out</a> 
+                                <a class="nav-item nav-link" href="{{ url_for('event.create') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">create</a> 
+                                {% elif current_user.is_authenticated and current_user.role=="customer" %} 
+                                <a class="nav-item nav-link disabled text-muted" href="#" style="background-color: rgb(5, 151, 151); border:1px solid black;"><span>Welcome, {{ current_user.name }}</span></a> 
+                                <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Log Out</a>  
                                 {% else %} 
-                                <a class="nav-item nav-link" href="{{ url_for('auth.customerregister') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Register as Customer</a> 
-                                <a class="nav-item nav-link" href="{{ url_for('auth.adminregister') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Register as Admin</a> 
-                                <a class="nav-item nav-link" href="{{ url_for('auth.login') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Log In</a> 
+                                <a class="nav-item nav-link" href="{{ url_for('auth.register') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Register as Customer</a> 
+                                <a class="nav-item nav-link" href="{{ url_for('auth.login') }}" style="background-color: rgb(180, 180, 3); border:1px solid black;">Log In As Customer</a>  
                                 {% endif %} 
                             </div> 
                         </div> 

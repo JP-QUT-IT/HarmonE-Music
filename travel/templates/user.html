@@ -31,8 +31,7 @@
     <!-- When you have login form, then do show the user a link to register -->
     {% if heading|lower =='login' %}
     <div class="col-md-4 mb-5 ml-5">
-        <p>New customer? <a href="{{ url_for('auth.customerregister') }}">Click here to register as customer</a>.</p>
-        <p>New admin? <a href="{{ url_for('auth.adminregister') }}">Click here to register as admin</a>.</p>
+        <p>New customer? <a href="{{ url_for('auth.register') }}">Click here to register as customer</a>.</p>
     </div>
     {% endif %}
 </div>

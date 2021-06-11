@@ -26,6 +26,7 @@ def create_app():
     def load_user(user_id):
         return User.query.get(int(user_id))
 
+
     from . import views
     app.register_blueprint(views.mainbp)
 

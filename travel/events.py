@@ -6,7 +6,6 @@ from .models import MusicEvent, Comment
 from .forms import CommentForm, EventForm, EditEventForm
 from flask_login import login_required, current_user
 from . import db
-from flask_user import roles_required
 
 #create a blueprint
 bp = Blueprint('event', __name__, url_prefix='/events')
@@ -20,23 +19,27 @@ def show(id):
 
 
 @bp.route('/create', methods=['GET','POST'])
-@roles_required('Admin')
 @login_required
 def create():
+  if (current_user.role == 'admin'):
+    pass
+  else:
+    return redirect('/Forbidden')
+  
   print('Method type: ', request.method)
   form = EventForm()
   if(form.validate_on_submit()):
     db_file_path=check_upload_file(form)
     event=MusicEvent(
-    EventName=form.name.data,  
-    EventImage=db_file_path,
-    EventDescription=form.description.data,
-    EventVenue=form.venue.data,
-    EventStart=form.start.data,
-    EventEnd=form.end.data,
-    EventTickets=form.tickets.data,
+    EventName=form.name.data, 
+    EventCreator=current_user,
+    EventImage=db_file_path, 
+    EventDescription=form.description.data, 
+    EventVenue=form.venue.data, 
+    EventStart=form.start.data, 
+    EventEnd=form.end.data, 
+    EventTickets=form.tickets.data, 
     EventStatus=form.status.data)
-    
     db.session.add(event)
     db.session.commit()
     return redirect('/events')
@@ -44,7 +47,6 @@ def create():
 
 @bp.route('/edit/<id>', methods=['GET', 'POST'])
 @login_required
-@roles_required('Admin')
 def edit(id):
   selectedEvent = MusicEvent.query.filter_by(id = id).first()
   form = EditEventForm(name=selectedEvent)
@@ -73,8 +75,7 @@ def edit(id):
   return render_template('events/edit.html', form=form)
 
 
-@bp.route('/<event>/comment', methods = ['GET', 'POST'])
-@roles_required('Customer')  
+@bp.route('/<event>/comment', methods = ['GET', 'POST']) 
 def comment(event):  
     form = CommentForm()  
     #get the destination object associated to the page and the comment
