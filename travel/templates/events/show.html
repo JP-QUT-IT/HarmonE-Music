@@ -7,12 +7,16 @@
         <div class="col-md-12">
             <div class="float-left">
                 <h1 class="mb-0">{{event.name}}</h1>
+                {% if current_user.is_authenticated and current_user.name==event.creator%}
+                <a href="{{url_for('event.edit', id=event.id)}}" class="btn btn-danger">Edit</a>
+                {% else %}
                 <p>Popular Event</p>
+                {% endif %} 
             </div>
 
             <div class="float-right text-right">
-                <p class="mb-0">1 AUD equals</p>
-                <h2 id="exchange-rate">{{event.genre}}</h1>
+
+                <h2 id="exchange-rate">{{event.genre}}</h2>
             </div>
         </div>
     </div>
@@ -29,7 +33,6 @@
                             <small class="font-weight-bold text-muted">Stay 2 nights</small>
                             <h5 class="mt-0">{{event.name}}</h5>
                             <p>{{event.description}}</p>
-                            <a href="{{url_for('event.edit', id=event.id)}}" class="btn btn-danger">Edit</a>
                         </div>
                     </div>
                 </div>
