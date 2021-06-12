@@ -51,12 +51,12 @@ def create():
     return redirect('/')
   return render_template('events/create.html', form=form)
 
-@bp.route('/book/<id>', methods=['GET', 'POST'])
-@login_required
-def book(id):
-  selectedEvent = MusicEvent.query.filter_by(id = id).first()
+# @bp.route('/book/<id>', methods=['GET', 'POST'])
+# @login_required
+# def book(id):
+#   selectedEvent = MusicEvent.query.filter_by(id = id).first()
 
-return render_template('events/book.html', form=form)
+# return render_template('events/book.html', form=form)
 
 
 @bp.route('/edit/<id>', methods=['GET', 'POST'])
