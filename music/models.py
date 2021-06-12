@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
 
     events = db.relationship('MusicEvent', backref='users')
     comments = db.relationship('Comment', backref='users')
+    orders = db.relationship('Order', backref='users')
 
 
 class MusicEvent(db.Model):
@@ -33,9 +34,8 @@ class MusicEvent(db.Model):
     EventTickets = db.Column(db.Integer, index=True, nullable=False)
     EventStatus = db.Column(db.String(200), index=True, nullable=False)
 
-    # ... Create the Comments db.relationship
-	# relation to call destination.comments and comment.destination
     comments = db.relationship('Comment', backref='events')
+    orders = db.relationship('Order', backref='events')
 
     def __repr__(self): #string print method
         return "<Name: {}>".format(self.name)
@@ -51,3 +51,13 @@ class Comment(db.Model):
 
     def __repr__(self):
         return "<Comment: {}>".format(self.text)
+
+class Order(db.Model):
+    __tablename__ = 'orders'
+    id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.String(2))
+    booked_at = db.Column(db.DateTime, default=datetime.now())
+
+    #add the foreign keys
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
