@@ -5,6 +5,10 @@ from flask_login import LoginManager
 
 db=SQLAlchemy()
 
+#403 forbidden error handling
+def forbidden(e):
+    return render_template('Error_Handling/403.html'), 403
+
 #404 not found error handling
 def page_not_found(e):
     return render_template('Error_Handling/404.html'), 404
@@ -19,6 +23,7 @@ def create_app():
     app.debug=True
     app.secret_key='utroutoru'
     app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///MusicEvent.sqlite'
+    app.register_error_handler(403, forbidden)
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(500, internal_server_error)
     db.init_app(app)
