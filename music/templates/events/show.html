@@ -59,7 +59,7 @@
 
     {% for comment in event.comments %}
     <div class="row border-bottom">
-        <div class="col-md-12">
+        <div class="col-md-12" style="background-color: white; border: 2px black;">
             <b> - {{comment.users.name}} - <span class="ml-2 text-muted">{{comment.created_at}}</span></b>
             <p>{{comment.text}}</p>
         </div>
