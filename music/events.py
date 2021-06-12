@@ -18,6 +18,8 @@ def show(id):
   return render_template('events/show.html', event=event, form=cform)
 
 
+
+
 @bp.route('/create', methods=['GET','POST'])
 @login_required
 def create():
@@ -49,7 +51,7 @@ def create():
     return redirect('/events')
   return render_template('events/create.html', form=form)
 
-@bp.route('/edit/<id>', methods=['GET', 'POST'])
+@bp.route('/<id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit(id):
   selectedEvent = MusicEvent.query.filter_by(id = id).first()

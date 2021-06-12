@@ -34,8 +34,7 @@
                 <section class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <div class="navbar-nav">
                         <a class="nav-item nav-link active" href="/">Home</a>
-                        <a class="nav-item nav-link" href="/events">Events</a>
-                        <a class="nav-item nav-link" href="/">Bookings</a>
+
 
                         {% if current_user.is_authenticated and current_user.role=="admin" %}
                         <a class="nav-item nav-link disabled text-muted" href="#"><span>Welcome, {{
@@ -44,6 +43,7 @@
                         <a class="nav-item nav-link" href="{{ url_for('event.create') }}">Create Event</a>
 
                         {% elif current_user.is_authenticated and current_user.role=="customer" %}
+                        <a class="nav-item nav-link" href="/">Bookings</a>
                         <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
 
                         {% else %}
