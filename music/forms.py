@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, IntegerField
+from wtforms.fields.core import DateTimeField
 from wtforms.validators import InputRequired, Email, EqualTo
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
@@ -34,8 +35,8 @@ class EventForm(FlaskForm):
     ('Dubstep', 'DUBSTEP'), ('Orchestra', 'ORCHESTRA')])
   description = TextAreaField('Event Description', validators=[InputRequired()])
   venue = StringField('Event Venue', validators=[InputRequired()])
-  start = StringField('Event Start', validators=[InputRequired()])
-  end = StringField('Event End', validators=[InputRequired()])
+  start = DateTimeField('Event Start', format='%d/%m/%y', validators=[InputRequired()])
+  end = DateTimeField('Event End', format='%d/%m/%y', validators=[InputRequired()])
   tickets = IntegerField('Initial Tickets Available', validators=[InputRequired()])
   status = SelectField('Event Status', choices=[('upcoming', 'UPCOMING'), ('inactive', 'INACTIVE'), ('booked', 'BOOKED'), ('cancelled', 'CANCELLED')])
   submit = SubmitField("Create")
@@ -57,8 +58,8 @@ class EditEventForm(FlaskForm):
     ('Dubstep', 'DUBSTEP'), ('Orchestra', 'ORCHESTRA')])
   description = TextAreaField('Event Description', validators=[InputRequired()])
   venue = StringField('Event Venue', validators=[InputRequired()])
-  start = StringField('Event Start', validators=[InputRequired()])
-  end = StringField('Event End', validators=[InputRequired()])
+  start = DateTimeField('Event Start', format='%d/%m/%y', validators=[InputRequired()])
+  end = DateTimeField('Event End', format='%d/%m/%y', validators=[InputRequired()])
   tickets = IntegerField('Initial Tickets Available', validators=[InputRequired()])
   status = SelectField('Event Status', choices=[('upcoming', 'UPCOMING'), ('inactive', 'INACTIVE'), ('booked', 'BOOKED'), ('cancelled', 'CANCELLED')])
   submit = SubmitField("Edit")
@@ -77,7 +78,7 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired()])
     email = StringField('Email', validators=[Email("Please enter an email address")])
-    contact_number = StringField('Contact_Numer', validators=[InputRequired()])
+    contact_number = StringField('Contact Number', validators=[InputRequired()])
     address = StringField('Address', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired(),
         EqualTo('confirm', message="Passwords should match")])
