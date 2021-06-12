@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <script src="https://kit.fontawesome.com/6471a92edb.js" crossorigin="anonymous"></script>
 </head>
 
 
@@ -40,11 +41,13 @@
 
                         <a class="nav-item nav-link" href="{{ url_for('event.create') }}">Create Event</a>
                         <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
-
+                        <a class="nav-item nav-link" style="color: gold"><i class="far fa-user"></i> {{
+                            current_user.name }}</a>
                         {% elif current_user.is_authenticated and current_user.role=="customer" %}
                         <a class="nav-item nav-link" href="/">My Bookings</a>
                         <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
-
+                        <a class="nav-item nav-link" style="color: gold"><i class="far fa-user"></i> {{
+                            current_user.name }}</a>
                         {% else %}
                         <a class="nav-item nav-link" href="{{ url_for('auth.register') }}">Sign Up</a>
                         <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Log In</a>
@@ -57,15 +60,6 @@
         </nav>
 
         <!-- displays message if user has logged in successfully -->
-        {%if current_user.is_authenticated %}
-        <aside class="container">
-            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                <strong class="col-md-8 fs-6">Welcome, {{
-                    current_user.name }}</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </aside>
-        {% endif %}
 
         {% block header %}
         {% endblock %}
