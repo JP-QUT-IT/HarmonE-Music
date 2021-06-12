@@ -50,3 +50,13 @@ class Comment(db.Model):
 
     def __repr__(self):
         return "<Comment: {}>".format(self.text)
+
+class Order(db.Model):
+    __tablename__ = 'orders'
+    id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.String(2))
+    booked_at = db.Column(db.DateTime, default=datetime.now())
+
+    #add the foreign keys
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))

@@ -44,4 +44,3 @@ def search():
         return render_template('index.html', events=events)
     else:
         return redirect(url_for('main.index'))
-
