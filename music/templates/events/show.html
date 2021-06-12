@@ -13,8 +13,10 @@
             <img class="mt-4" height="200rem" src="{{event.EventImage}}" alt="{{event.EventName}}">
             <p class="lead fw-normal">{{event.EventDescription}}</p>
 
-            {% if current_user.is_authenticated and current_user.name==event.EventCreator %}
+
+            {% if current_user.is_authenticated and current_user.role=="admin" %}
             <a class="btn btn-outline-secondary" href="{{url_for('event.edit', id=event.id)}}">Edit This Event</a>
+
             {% elif current_user.is_authenticated and current_user.role=="customer" %}
             <a class="btn btn-outline-success" href="">Book Tickets Now</a>
             {% endif %}
@@ -28,53 +30,56 @@
 
     <!-- Comments -->
 
-    <section class="accordion py-3" id="dateSelector">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
+    <section class="accordion py-3 " id="commentBox">
+        <div class="accordion-item border border-4 border-dark rounded-3">
+            <h2 class="accordion-header display-4" id="comments">
+                <button class="accordion-button bg-warning" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     See what people are saying about this event!
                 </button>
             </h2>
 
-            <!-- example dates to select -->
-            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                data-bs-parent="#dateSelector">
+
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="comments"
+                data-bs-parent="#commentBox">
                 <div class="accordion-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <h2>Comments</h1>
+                        <div>
+                            <h2>Leave your comment here:</h2>
                         </div>
                     </div>
 
                     <div>
+                        <!-- Form to input comment -->
+
                         {{wtf.quick_form(form,
                         "/events/{0}/comment".format(event.id))}}
-                    </div>
-                    {% if comments %}
-                    <div class="table-responsive">
-                        <table class="table table-sm text-dark">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Created</th>
-                                    <th scope="col">User</th>
-                                    <th scope="col">Comment</th>
 
-                                </tr>
-                            </thead>
 
-                            <tbody>
-                                {% for comment in event.comments %}
-                                <tr>
-                                    <td>{{comment.created_at}}</td>
-                                    <td>{{comment.users.name}}</td>
-                                    <td>{{comment.text}}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        <!-- table of comments recieved -->
+                        <div class="table-responsive">
+                            <table class="table table-sm text-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Created</th>
+                                        <th scope="col">User</th>
+                                        <th scope="col">Comment</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    {% for comment in event.comments %}
+                                    <tr>
+                                        <td>{{comment.created_at}}</td>
+                                        <td>{{comment.users.name}}</td>
+                                        <td>{{comment.text}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    {% endif %}
                 </div>
             </div>
         </div>

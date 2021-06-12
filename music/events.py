@@ -56,7 +56,7 @@ def create():
 # def book(id):
 #   selectedEvent = MusicEvent.query.filter_by(id = id).first()
 
-# return render_template('events/book.html', form=form)
+#   return render_template('events/book.html', form=form)
 
 
 @bp.route('/edit/<id>', methods=['GET', 'POST'])
