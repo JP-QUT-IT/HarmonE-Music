@@ -17,10 +17,9 @@
             {% elif current_user.is_authenticated and current_user.role=="customer" %}
             <a class="btn btn-outline-success" href="">Book Tickets Now</a>
             {% endif %}
+            <img class="card-img-top mt-3" height="200rem" src="{{event.EventImage}}" alt="{{event.EventName}}">
 
         </div>
-        <div class="product-device shadow-sm d-none d-md-block"></div>
-        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
     </div>
 
     <hr>
@@ -45,7 +44,6 @@
         </div>
     </div>
     {% endfor %}
-
 
 </div>
 
