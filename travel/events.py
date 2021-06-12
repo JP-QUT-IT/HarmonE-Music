@@ -1,4 +1,5 @@
 import re
+from travel.views import events
 from flask import ( 
     Blueprint, app, flash, render_template, request, url_for, redirect
 ) 
@@ -52,6 +53,14 @@ def create():
 @bp.route('/edit/<id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
+
+  if (current_user.role == 'admin'):
+    pass
+  elif (current_user.role == 'customer'):
+    return redirect('/Forbidden')
+  else:
+    return redirect('/Forbidden')
+
   selectedEvent = MusicEvent.query.filter_by(id = id).first()
   form = EditEventForm(name=selectedEvent)
   if form.validate_on_submit():
@@ -88,7 +97,7 @@ def comment(event):
     if form.validate_on_submit():  
       #read the comment from the form
       comment = Comment(text=form.text.data,  
-                        event=event_obj, user=current_user) 
+                        events=event_obj, users=current_user) 
       #here the back-referencing works - comment.destination is set
       # and the link is created
       db.session.add(comment) 
@@ -98,7 +107,7 @@ def comment(event):
       #flash('Your comment has been added', 'success')  
       print('Your comment has been added', 'success') 
     # using redirect sends a GET request to destination.show
-    return redirect(url_for('event.show', id=event))
+    return redirect(url_for('event.show', id=events))
 
 import os
 from werkzeug.utils import secure_filename

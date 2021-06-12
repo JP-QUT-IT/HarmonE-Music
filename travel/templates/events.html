@@ -27,11 +27,12 @@
         <div class="row justify-content-center">
         {% for event in events %}
           <div class="card mb-5 mr-5 px-0 col-md-3">
-            <img class="card-img-top" height="200rem" src="{{events.image}}" alt="{{events.name}}">
+            <img class="card-img-top" height="200rem" src="{{event.EventImage}}" alt="{{event.EventName}}">
             <div class="card-body">
-              <h5 class="card-title">{{events.name}}</h5>
-              <p class="card-text">{{events.description}}</p>
-              <a href="{{url_for('events.show', id=event.id)}}" class="btn btn-danger">View Details</a>
+              <h5 class="card-title">{{event.EventName}}</h5>
+              <p class="card-text">{{events.EventDescription}}</p>
+              <p class="card-text">{{events.EventGenre}}</p>
+              <a href="{{url_for('event.show', id=event.id)}}" class="btn btn-danger">View Details</a>
               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
           </div>

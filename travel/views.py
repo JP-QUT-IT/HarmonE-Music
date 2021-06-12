@@ -29,9 +29,9 @@ def events():
 def searchtitle():
 #get the search string from request  
     if request.args['searchtitle']:
-        evnt = "%" + request.args['searchtitle'] + '%'
+        evntt = "%" + request.args['searchtitle'] + '%'
 #use filter and like function to search for matching destinations  
-        events = MusicEvent.query.filter(MusicEvent.name.like(evnt)).all()  
+        events = MusicEvent.query.filter(MusicEvent.EventName.like(evntt)).all()  
         #render index.html with few destinations
         return render_template('index.html', events=events)
     else:
@@ -42,10 +42,10 @@ def searchtitle():
 def searchgenre():
 #get the search string from request  
     if request.args['searchgenre']:
-        evnt = "%" + request.args['searchgenre'] + '%'
+        evntg = "%" + request.args['searchgenre'] + '%'
 #use filter and like function to search for matching destinations  
-        events = MusicEvent.query.filter(MusicEvent.name.like(evnt)).all()  
+        events = MusicEvent.query.filter(MusicEvent.EventGenre.like(evntg)).all()  
         #render index.html with few destinations
         return render_template('events.html', events=events)
     else:
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.events'))
