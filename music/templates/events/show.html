@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="float-left">
                 <h1 class="mb-0">{{event.name}}</h1>
-                {% if current_user.is_authenticated and current_user.name==event.creator%}
+                {% if current_user.is_authenticated and current_user.name==event.EventCreator%}
                 <a href="{{url_for('event.edit', id=event.id)}}" class="btn btn-danger">Edit</a>
                 {% else %}
                 <p>Popular Event</p>
