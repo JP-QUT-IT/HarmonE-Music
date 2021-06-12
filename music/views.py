@@ -23,6 +23,10 @@ def Error_404():
 def Error_500():
     return render_template('Error_Handling/500.html')
 
+@mainbp.route('/Error-403')
+def Error_403():
+    return render_template('Error_Handling/403.html')
+
 @mainbp.route('/events')
 def events():
     events = MusicEvent.query.all()
