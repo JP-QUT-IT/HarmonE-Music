@@ -59,10 +59,11 @@
 
         <!-- displays message if user has logged in successfully -->
         {%if current_user.is_authenticated %}
-        <aside class="container-fluid">
+        <aside class="container">
             <div class="alert alert-info alert-dismissible fade show" role="alert">
-                <p class="col-md-8 fs-6">Welcome, {{
-                    current_user.name }}</p>
+                <strong class="col-md-8 fs-6">Welcome, {{
+                    current_user.name }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </aside>
         {% endif %}
