@@ -5,12 +5,22 @@ from flask_login import LoginManager
 
 db=SQLAlchemy()
 
+#404 not found error handling
+def page_not_found(e):
+    return render_template('Error_Handling/404.html'), 404
+
+#500 internal server error error handling
+def internal_server_error(e):
+    return render_template('Error_Handling/500.html'), 500
+
 def create_app():
   
     app=Flask(__name__)
     app.debug=True
     app.secret_key='utroutoru'
     app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///MusicEvent.sqlite'
+    app.register_error_handler(404, page_not_found)
+    app.register_error_handler(500, internal_server_error)
     db.init_app(app)
 
     bootstrap = Bootstrap(app)
