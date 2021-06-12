@@ -7,6 +7,7 @@ from .models import MusicEvent, Comment
 from .forms import CommentForm, EventForm, EditEventForm
 from flask_login import login_required, current_user
 from . import db
+import music
 
 #create a blueprint
 bp = Blueprint('event', __name__, url_prefix='/events')
@@ -108,6 +109,14 @@ def comment(event):
       print('Your comment has been added', 'success') 
     # using redirect sends a GET request to destination.show
     return redirect(url_for('event.show', id=event))
+
+@bp.route('/delete/<id>', methods=['GET'])
+def delete(id):
+    selectedEvent = MusicEvent.query.filter_by(id = id).first() ## Tells program to get the data from the customer selected ##
+    db.session.delete(selectedEvent) ## Tells program to go to delete the selected customer details ##
+    db.session.commit() ## Tells program to go to delete the selected customer details ##
+    flash('Congratulations, you have deleted an Customer!')
+    return redirect('/events')
 
 import os
 from werkzeug.utils import secure_filename
