@@ -48,8 +48,16 @@ def create():
     EventStatus=form.status.data)
     db.session.add(event)
     db.session.commit()
-    return redirect('/events')
+    return redirect('/')
   return render_template('events/create.html', form=form)
+
+# @bp.route('/book/<id>', methods=['GET', 'POST'])
+# @login_required
+# def book(id):
+#   selectedEvent = MusicEvent.query.filter_by(id = id).first()
+
+# return render_template('events/book.html', form=form)
+
 
 @bp.route('/edit/<id>', methods=['GET', 'POST'])
 @login_required
@@ -66,7 +74,6 @@ def edit(id):
   form = EditEventForm(name=selectedEvent)
   if form.validate_on_submit():
     db_file_path=check_upload_file(form)
-    selectedEvent.id=form.id.data
     selectedEvent.EventName=form.name.data
     selectedEvent.EventImage=db_file_path
     selectedEvent.EventGenre=form.genre.data
@@ -82,6 +89,7 @@ def edit(id):
   elif request.method == 'GET':
     form.name.data = selectedEvent.EventName
     form.image.data = selectedEvent.EventImage
+    form.genre.data = selectedEvent.EventGenre
     form.description.data = selectedEvent.EventDescription
     form.venue.data = selectedEvent.EventVenue
     form.start.data = selectedEvent.EventStart
@@ -112,8 +120,8 @@ def comment(event):
     return redirect(url_for('event.show', id=event))
 
 @bp.route('/delete/<id>', methods=['GET'])
-def delete(id):
-    selectedEvent = MusicEvent.query.filter_by(id = id).first() ## Tells program to get the data from the customer selected ##
+def delete(eid):
+    selectedEvent = MusicEvent.query.filter_by(id=eid).first() ## Tells program to get the data from the customer selected ##
     db.session.delete(selectedEvent) ## Tells program to go to delete the selected customer details ##
     db.session.commit() ## Tells program to go to delete the selected customer details ##
     flash('Congratulations, you have deleted an Customer!')
