@@ -4,44 +4,24 @@
 {% block content %}
 <div class="container">
 
-    <div class="row mt-5 mb-3">
-        <div class="col-md-12">
-            <div class="float-left">
-                <h1 class="mb-0">{{event.name}}</h1>
-                {% if current_user.is_authenticated and current_user.name==event.EventCreator%}
-                <a href="{{url_for('event.edit', id=event.id)}}" class="btn btn-danger">Edit</a>
-                {% else %}
-                <p>Popular Event</p>
-                {% endif %} 
-                </div>
 
-                 <div class="float-right text-right">
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-5 text-center bg-light rounded-3">
 
-                <h2 id="exchange-rate">{{event.genre}}</h2>
-            </div>
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+
+            <h1 class="display-4 fw-normal">{{event.EventName}}</h1>
+            <p class="lead fw-normal">{{event.EventDescription}}</p>
+
+            {% if current_user.is_authenticated and current_user.name==event.EventCreator %}
+            <a class="btn btn-outline-secondary" href="{{url_for('event.edit', id=event.id)}}">Edit This Event</a>
+            {% elif current_user.is_authenticated and current_user.role=="customer" %}
+            <a class="btn btn-outline-success" href="">Book Tickets Now</a>
+            {% endif %}
+
         </div>
+        <div class="product-device shadow-sm d-none d-md-block"></div>
+        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
     </div>
-
-    <!-- Destination -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card my-3">
-                <div class="card-body">
-                    <div class="media">
-                        <img class="align-self-start mr-3" src="{{event.image}}" alt="{{event.name}}"
-                            style="max-width: 250px;">
-                        <div class="media-body">
-                            <small class="font-weight-bold text-muted">Stay 2 nights</small>
-                            <h5 class="mt-0">{{event.name}}</h5>
-                            <p>{{event.description}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 
     <hr>
 
@@ -52,9 +32,9 @@
         </div>
     </div>
 
-    <div>        
+    <div>
         {{wtf.quick_form(form,
-            "/events/{0}/comment".format(event.id))}}
+        "/events/{0}/comment".format(event.id))}}
     </div>
 
     {% for comment in event.comments %}

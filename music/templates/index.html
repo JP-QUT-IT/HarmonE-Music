@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block header %}
 <!--Jumbotron-->
@@ -19,8 +20,9 @@
 
 {% block content %}
 <div class="container">
-  <!-- justified in the center, margin top and bottom and the column contains a 10 grid -->
 
+  <!-- checks to see if there are any events, if so, display each one in the card format below -->
+  
   {% if events %}
   <div class="row justify-content-between">
     {% for event in events %}
