@@ -27,28 +27,57 @@
     <hr>
 
     <!-- Comments -->
-    <div class="row">
-        <div class="col-md-12">
-            <h2>Comments</h1>
+
+    <section class="accordion py-3" id="dateSelector">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    Select A Genre Here
+                </button>
+            </h2>
+
+            <!-- example dates to select -->
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                data-bs-parent="#dateSelector">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Comments</h1>
+                        </div>
+                    </div>
+
+                    <div>
+                        {{wtf.quick_form(form,
+                        "/events/{0}/comment".format(event.id))}}
+                    </div>
+                    {% if comments %}
+                    <div class="table-responsive">
+                        <table class="table table-sm text-dark">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Created</th>
+                                    <th scope="col">Thumbs</th>
+                                    <th scope="col">Comment</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for comment in event.comments %}
+                                <tr>
+                                    <td>{{comment.created_at}}</td>
+                                    <td>{{comment.users.name}}</td>
+                                    <td>{{comment.text}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% end if %}
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div>
-        {{wtf.quick_form(form,
-        "/events/{0}/comment".format(event.id))}}
-    </div>
-
-    {% for comment in event.comments %}
-    <div class="row border-bottom">
-        <div class="col-md-12" style="background-color: white; border: 2px black;">
-            <b> - {{comment.users.name}} - <span class="ml-2 text-muted">{{comment.created_at}}</span></b>
-            <p>{{comment.text}}</p>
-        </div>
-    </div>
-    {% endfor %}
-
-
+    </section>
 </div>
-
-
 {% endblock %}
