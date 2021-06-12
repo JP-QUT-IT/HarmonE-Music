@@ -60,7 +60,7 @@
         <!-- displays message if user has logged in successfully -->
         {%if current_user.is_authenticated %}
         <aside class="container-fluid">
-            <div class="container pb-4 border-bottom">
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
                 <p class="col-md-8 fs-6">Welcome, {{
                     current_user.name }}</p>
             </div>

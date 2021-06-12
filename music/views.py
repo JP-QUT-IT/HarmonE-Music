@@ -46,6 +46,6 @@ def searchgenre():
 #use filter and like function to search for matching destinations  
         events = MusicEvent.query.filter(MusicEvent.name.like(evnt)).all()  
         #render index.html with few destinations
-        return render_template('events.html', events=events)
+        return render_template('index.html', events=events)
     else:
         return redirect(url_for('main.index'))
