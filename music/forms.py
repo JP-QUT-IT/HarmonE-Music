@@ -6,32 +6,32 @@ from flask_wtf.file import FileRequired, FileField, FileAllowed
 #add the types of files allowed as a set
 ALLOWED_FILE = {'png', 'jpg', 'JPG', 'PNG'}
 
+class GenreSearchForm(FlaskForm):
+    genre = SelectField('Genres', choices=[('Country', 'COUNTRY'), ('Techno', 'TECHNO'), 
+    ('Funk', 'FUNK'), ('Hip Hop', 'HIP HOP'),
+    ('Musical', 'MUSICAL'), ('Opera', 'OPERA'),
+    ('Jazz', 'JAZZ'), ('Pop', 'POP'),
+    ('Punk', 'PUNK'), ('Rock', 'ROCK'),
+    ('Blues', 'BLUES'), ('Heavy Metal', 'HEAVY METAL'),
+    ('Folk', 'FOLK'), ('Classical', 'CLASSICAL'),
+    ('Alternative Rock', 'ALTERNATIVE ROCK'), ('Dance', 'DANCE'),
+    ('Disco', 'DISCO'), ('Instrumental', 'INSTRUMENTAL'),
+    ('Dubstep', 'DUBSTEP'), ('Orchestra', 'ORCHESTRA')])
+
 class EventForm(FlaskForm):
   name = StringField('Event Title', validators=[InputRequired()])
   image = FileField('Event Advertisement Image', validators=[FileRequired(message='Image can not be empty'),
           FileAllowed(ALLOWED_FILE, message='Only support png, jpg, JPG, PNG, bmp')])
-  genre = SelectField('Genres', choices=[
-    ('Country', 'COUNTRY'), 
-    ('Techno', 'TECHNO'), 
-    ('Funk', 'FUNK'), 
-    ('Hip Hop', 'HIP HOP'),
-    ('Musical', 'MUSICAL'),
-    ('Opera', 'OPERA'),
-    ('Jazz', 'JAZZ'),
-    ('Pop', 'POP'),
-    ('Punk', 'PUNK'),
-    ('Rock', 'ROCK'),
-    ('Blues', 'BLUES'),
-    ('Heavy Metal', 'HEAVY METAL'),
-    ('Folk', 'FOLK'),
-    ('Classical', 'CLASSICAL'),
-    ('Alternative Rock', 'ALTERNATIVE ROCK'),
-    ('Dance', 'DANCE'),
-    ('Disco', 'DISCO'),
-    ('Instrumental', 'INSTRUMENTAL'),
-    ('Dubstep', 'DUBSTEP'),
-    ('Orchestra', 'ORCHESTRA')
-    ])
+  genre = SelectField('Genres', choices=[('Country', 'COUNTRY'), ('Techno', 'TECHNO'), 
+    ('Funk', 'FUNK'), ('Hip Hop', 'HIP HOP'),
+    ('Musical', 'MUSICAL'), ('Opera', 'OPERA'),
+    ('Jazz', 'JAZZ'), ('Pop', 'POP'),
+    ('Punk', 'PUNK'), ('Rock', 'ROCK'),
+    ('Blues', 'BLUES'), ('Heavy Metal', 'HEAVY METAL'),
+    ('Folk', 'FOLK'), ('Classical', 'CLASSICAL'),
+    ('Alternative Rock', 'ALTERNATIVE ROCK'), ('Dance', 'DANCE'),
+    ('Disco', 'DISCO'), ('Instrumental', 'INSTRUMENTAL'),
+    ('Dubstep', 'DUBSTEP'), ('Orchestra', 'ORCHESTRA')])
   description = TextAreaField('Event Description', validators=[InputRequired()])
   venue = StringField('Event Venue', validators=[InputRequired()])
   start = StringField('Event Start', validators=[InputRequired()])
@@ -45,7 +45,16 @@ class EditEventForm(FlaskForm):
   name = StringField('Event Title', validators=[InputRequired()])
   image = FileField('Event Advertisement Image', validators=[FileRequired(message='Image can not be empty'),
           FileAllowed(ALLOWED_FILE, message='Only support png, jpg, JPG, PNG, bmp')])
-  genre = StringField('Event Genre', validators=[InputRequired()])
+  genre = SelectField('Genres', choices=[('Country', 'COUNTRY'), ('Techno', 'TECHNO'), 
+    ('Funk', 'FUNK'), ('Hip Hop', 'HIP HOP'),
+    ('Musical', 'MUSICAL'), ('Opera', 'OPERA'),
+    ('Jazz', 'JAZZ'), ('Pop', 'POP'),
+    ('Punk', 'PUNK'), ('Rock', 'ROCK'),
+    ('Blues', 'BLUES'), ('Heavy Metal', 'HEAVY METAL'),
+    ('Folk', 'FOLK'), ('Classical', 'CLASSICAL'),
+    ('Alternative Rock', 'ALTERNATIVE ROCK'), ('Dance', 'DANCE'),
+    ('Disco', 'DISCO'), ('Instrumental', 'INSTRUMENTAL'),
+    ('Dubstep', 'DUBSTEP'), ('Orchestra', 'ORCHESTRA')])
   description = TextAreaField('Event Description', validators=[InputRequired()])
   venue = StringField('Event Venue', validators=[InputRequired()])
   start = StringField('Event Start', validators=[InputRequired()])
