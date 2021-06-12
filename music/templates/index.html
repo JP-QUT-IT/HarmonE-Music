@@ -9,42 +9,76 @@
       <h1 class="display-5 fw-bold">Search Our Events</h1>
       <p class="fs-4">Search our events catalogue via genre to find the gigs you're interested in:
       </p>
-      <form class="form-inline d-flex flex-nowrap" action="{{url_for('main.search')}}" >
+      <form class="form-inline d-flex flex-nowrap" action="{{url_for('main.search')}}">
         <input type="text" name="search" class="form-control flex-grow-1 my-1 mr-sm-2" id="inlineFormCustomSelectPref">
         <button type="submit" class="flex-shrink-1 btn btn-primary my-1">Submit</button>
       </form>
-      <form class="form-inline d-flex flex-nowrap" action="{{url_for('main.genre_filter')}}" >
-        <input type="text" name="genre_filter" class="form-control flex-grow-1 my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-        <button type="submit" class="flex-shrink-1 btn btn-primary my-1">Submit</button>
-      </form>
-    </div>
-  </div>
-</div>
-{% endblock %}
 
-{% block content %}
-<div class="container">
+      <!-- <input type="text" name="genre_filter" class="form-control flex-grow-1 my-1 mr-sm-2" id="inlineFormCustomSelectPref"> -->
 
-  <!-- checks to see if there are any events, if so, display each one in the card format below -->
-  
-  {% if events %}
-  <div class="row justify-content-between">
-    {% for event in events %}
-    <div class="card mb-5 mr-5 px-0 col-md-3">
-      <img class="card-img-top" height="200rem" src="{{event.EventImage}}" alt="{{event.EventName}}">
-      <div class="card-body">
-        <h5 class="card-title">{{event.EventName}}</h5>
-        <p class="card-text">Status: {{event.EventStatus}}</p>
+      <div class="accordion py-3" id="dateSelector">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+              aria-expanded="true" aria-controls="collapseOne">
+              Select A Genre Here
+            </button>
+          </h2>
 
-        <a href="{{url_for('event.show', id=event.id)}}" class="btn btn-danger">View Details</a>
-        <p class="card-text"><small class="text-muted">{{event.EventVenue}}</small></p>
+          <!-- example dates to select -->
+          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+            data-bs-parent="#dateSelector">
+            <div class="accordion-body">
+              <form class="form" action="{{url_for('main.genre_filter')}}">
+                <button type="submit" name="genre_filter" value="country"
+                  class="list-group-item list-group-item-action">Country</button>
+                <button type="submit" name="genre_filter" value="Techno"
+                  class="list-group-item list-group-item-action">Techno</button>
+                <button type="submit" name="genre_filter" value="Funk"
+                  class="list-group-item list-group-item-action">Funk</button>
+                <button type="submit" name="genre_filter" value="Hip Hop"
+                  class="list-group-item list-group-item-action">Hip
+                  Hop</button>
+                  
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <!-- <button type="submit" class="flex-shrink-1 btn btn-primary my-1">Submit</button> -->
+
       </div>
     </div>
-    {% endfor %}
   </div>
+  {% endblock %}
 
-  {% endif %}
-</div>
+  {% block content %}
+  <div class="container">
+
+    <!-- checks to see if there are any events, if so, display each one in the card format below -->
+
+    {% if events %}
+    <div class="row justify-content-between">
+      {% for event in events %}
+      <div class="card mb-5 mr-5 px-0 col-md-3">
+        <img class="card-img-top" height="200rem" src="{{event.EventImage}}" alt="{{event.EventName}}">
+        <div class="card-body">
+          <h5 class="card-title">{{event.EventName}}</h5>
+          <p class="card-text">Status: {{event.EventStatus}}</p>
+
+          <a href="{{url_for('event.show', id=event.id)}}" class="btn btn-danger">View Details</a>
+          <p class="card-text"><small class="text-muted">{{event.EventVenue}}</small></p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% endif %}
+  </div>
 
 </div>
 {% endblock %}
