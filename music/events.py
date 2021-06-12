@@ -66,6 +66,7 @@ def edit(id):
   form = EditEventForm(name=selectedEvent)
   if form.validate_on_submit():
     db_file_path=check_upload_file(form)
+    selectedEvent.id=form.id.data
     selectedEvent.EventName=form.name.data
     selectedEvent.EventImage=db_file_path
     selectedEvent.EventGenre=form.genre.data
@@ -116,7 +117,7 @@ def delete(id):
     db.session.delete(selectedEvent) ## Tells program to go to delete the selected customer details ##
     db.session.commit() ## Tells program to go to delete the selected customer details ##
     flash('Congratulations, you have deleted an Customer!')
-    return redirect('/events')
+    return redirect('/')
 
 import os
 from werkzeug.utils import secure_filename

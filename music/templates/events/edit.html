@@ -5,9 +5,8 @@
 <div class="container" style="background-color:rgb(59, 59, 59); width: auto; color: gold;">
     <div class="row mt-5" style="width: 100%;">
         <div class="col-md-12">
-
+            <a href="{{url_for('event.delete', id=id)}}" class="btn btn-danger">Delete</a>
             <h1 style="color: white;"> Update a Music Event</h1>
-            <a href="{{url_for('event.delete', id=form.id.data)}}" class="btn btn-danger">Delete</a>
             {{wtf.quick_form(form)}}
         </div>
     </div>
