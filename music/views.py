@@ -15,9 +15,13 @@ def index():
         message = '<h1>HELLO</h1>'
     return message
 
-@mainbp.route('/Forbidden')
-def Forbidden():
-    return render_template('Error_Handling/Forbidden.html')
+@mainbp.route('/Error_404')
+def Error_404():
+    return render_template('Error_Handling/404.html')
+
+@mainbp.route('/Error_500')
+def Error_500():
+    return render_template('Error_Handling/500.html')
 
 @mainbp.route('/events')
 def events():
