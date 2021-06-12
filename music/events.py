@@ -105,7 +105,6 @@ from werkzeug.utils import secure_filename
 
   # a new function
 
-  
 def check_upload_file(form):
   fp=form.image.data
   filename=fp.filename
