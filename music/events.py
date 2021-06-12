@@ -18,8 +18,6 @@ def show(id):
   return render_template('events/show.html', event=event, form=cform)
 
 
-
-
 @bp.route('/create', methods=['GET','POST'])
 @login_required
 def create():
@@ -51,7 +49,7 @@ def create():
     return redirect('/events')
   return render_template('events/create.html', form=form)
 
-@bp.route('/<id>/edit', methods=['GET', 'POST'])
+@bp.route('/edit/<id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
   selectedEvent = MusicEvent.query.filter_by(id = id).first()
@@ -90,7 +88,7 @@ def comment(event):
     if form.validate_on_submit():  
       #read the comment from the form
       comment = Comment(text=form.text.data,  
-                        event=event_obj, customer=current_user) 
+                        event=event_obj, user=current_user) 
       #here the back-referencing works - comment.destination is set
       # and the link is created
       db.session.add(comment) 
