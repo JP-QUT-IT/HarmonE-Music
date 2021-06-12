@@ -25,10 +25,11 @@
   <div class="row justify-content-between">
     {% for event in events %}
     <div class="card mb-5 mr-5 px-0 col-md-3">
-      <img class="card-img-top" height="200rem" src="{{event.image}}" alt="{{event.name}}">
+      <img class="card-img-top" height="200rem" src="{{event.EventImage}}" alt="{{event.EventName}}">
       <div class="card-body">
         <h5 class="card-title">{{event.EventName}}</h5>
-        <p class="card-text">{{event.EventDescription}}</p>
+        <p class="card-text">Status: {{event.EventStatus}}</p>
+
         <a href="{{url_for('event.show', id=event.id)}}" class="btn btn-danger">View Details</a>
         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
