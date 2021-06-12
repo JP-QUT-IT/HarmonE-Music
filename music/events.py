@@ -53,15 +53,15 @@ def create():
 @bp.route('/edit/<id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
+  selectedEvent = MusicEvent.query.filter_by(id = id).first()
 
-  if (current_user.role == 'admin'):
+  if (current_user.name==selectedEvent.EventCreator):
     pass
   elif (current_user.role == 'customer'):
     return redirect('/Forbidden')
   else:
     return redirect('/Forbidden')
-
-  selectedEvent = MusicEvent.query.filter_by(id = id).first()
+  
   form = EditEventForm(name=selectedEvent)
   if form.validate_on_submit():
     db_file_path=check_upload_file(form)
