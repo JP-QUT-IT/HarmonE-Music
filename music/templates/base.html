@@ -37,8 +37,6 @@
 
 
                         {% if current_user.is_authenticated and current_user.role=="admin" %}
-                        <a class="nav-item nav-link disabled text-muted" href="#"><span>Welcome, {{
-                                current_user.name }}</span></a>
                         <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
                         <a class="nav-item nav-link" href="{{ url_for('event.create') }}">Create Event</a>
 
