@@ -14,8 +14,10 @@ class User(db.Model, UserMixin):
     addres = db.Column(db.String(100), index=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(200), index=True, nullable=False)
+
     events = db.relationship('MusicEvent', backref='users')
     comments = db.relationship('Comment', backref='users')
+    orders = db.relationship('Order', backref='users')
 
 
 class MusicEvent(db.Model):
@@ -32,9 +34,8 @@ class MusicEvent(db.Model):
     EventTickets = db.Column(db.Integer, index=True, nullable=False)
     EventStatus = db.Column(db.String(200), index=True, nullable=False)
 
-    # ... Create the Comments db.relationship
-	# relation to call destination.comments and comment.destination
     comments = db.relationship('Comment', backref='events')
+    orders = db.relationship('Order', backref='events')
 
     def __repr__(self): #string print method
         return "<Name: {}>".format(self.name)
