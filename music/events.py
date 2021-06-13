@@ -51,14 +51,6 @@ def create():
     return redirect('/')
   return render_template('events/create.html', form=form)
 
-# @bp.route('/book/<id>', methods=['GET', 'POST'])
-# @login_required
-# def book(id):
-#   selectedEvent = MusicEvent.query.filter_by(id = id).first()
-
-#   return render_template('events/book.html', form=form)
-
-
 @bp.route('/edit/<id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
@@ -119,7 +111,7 @@ def comment(event):
     # using redirect sends a GET request to destination.show
     return redirect(url_for('event.show', id=event))
 
-@bp.route('/book/<id>', methods=['GET','POST'])
+@bp.route('/<event>/book', methods = ['GET', 'POST']) 
 @login_required
 def book(id):
   event_obj = MusicEvent.query.filter_by(id=id).first()
