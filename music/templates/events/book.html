@@ -7,15 +7,15 @@
     <div class="row mt-5" style="width: 100%;">
         <div class="col-md-12">
 
-            <h1 class="display-4">{{current_user.name}}, You Are On Your Way To Booking Tickets For {{event.EventName}}!
+            <h1 class="display-4">{{current_user.name}}, You Are On Your Way To Booking Tickets!
             </h1>
 
-            <h1 class="display-4">Tickets Available: {{event.EventTickets}}</h1>
+            <h1 class="display-4">Tickets Available:</h1>
 
             <form action="" method="post" class="form" role="form">
                 {{ form.csrf_token() }}
 
-                {{ wtf.form_field(form.quantity, class='form-control', placeholder="Username") }}
+                {{ wtf.form_field(form.quantity, class='form-control', placeholder="Amount") }}
 
                 <button type="submit" class="btn btn-primary btn-lg my-4">Submit</button>
 
