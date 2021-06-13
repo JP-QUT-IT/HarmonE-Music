@@ -4,6 +4,23 @@
 {% block header %}
 <!--Jumbotron-->
 <div class="container py-4">
+  <!-- will display message after event is created, editted or booked -->
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <!-- check if there are any messages -->
+  <div class="container-fluid">
+      <div class="row mb-3">
+          <div class="col-md-12">
+              {% for message in messages %}
+              <!--loop through the messages-->
+              <div class="alert alert-info">{{ message }}</div>
+              <!--display as alert-->
+              {% endfor %}
+          </div>
+      </div>
+  </div>
+  {% endif %}
+  {% endwith %}
   <div class="p-5 mb-4 bg-light rounded-3">
     <div class="container-fluid py-5">
       <h1 class="display-5 fw-bold">Search Our Events</h1>

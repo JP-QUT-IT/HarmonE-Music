@@ -47,6 +47,7 @@ def create():
     EventStatus=form.status.data)
     db.session.add(event)
     db.session.commit()
+    flash('Created event')
     return redirect('/')
   return render_template('events/create.html', form=form)
 
@@ -83,7 +84,7 @@ def edit(id):
     selectedEvent.EventTickets=form.tickets.data
     selectedEvent.EventStatus=form.status.data
     db.session.commit()
-    flash('Editted')
+    flash('Editted event')
     return redirect('/')
   elif request.method == 'GET':
     form.name.data = selectedEvent.EventName
@@ -138,6 +139,7 @@ def book(id):
       users=current_user)
     db.session.add(order)
     db.session.commit()
+    flash('Event is booked')
     return redirect('/')
   return render_template('events/book.html', form=form)
 
