@@ -2,12 +2,15 @@ import re
 from flask import ( 
     Blueprint, app, flash, render_template, request, url_for, redirect
 )
-from wtforms.widgets.core import Select 
+from sqlalchemy.sql.schema import FetchedValue
+from sqlalchemy.sql.sqltypes import Integer
 from .models import MusicEvent, Comment, Order
 from .forms import CommentForm, EventForm, EditEventForm, OrderForm
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.types import Integer
 from flask_login import login_required, current_user
 from . import db
-import music
+import math
 
 #create a blueprint
 bp = Blueprint('event', __name__, url_prefix='/events')
@@ -125,29 +128,26 @@ def book(id):
     return redirect('/Forbidden')
   
   print('Method type: ', request.method)
-
   form = OrderForm()
-  selectedEvent = MusicEvent.query.filter_by(id = id).first()
-  if Order.quantity > selectedEvent.EventTickets:
-    pass
-  elif Order.quantity < selectedEvent.EventTickets:
+  if form.validate_on_submit():
+    selectedEvent = MusicEvent.query.filter_by(id = id).first()
     order = Order(
-      quantity=form.quantity.data,  
-      events=event_obj, 
-      users=current_user)
+        quantity=form.quantity.data,  
+        events=event_obj, 
+        users=current_user)
     db.session.add(order)
-    selectedEvent.EventTickets = selectedEvent.EventTickets - Order.quantity
-    db.session.commit()
-  elif Order.quantity == selectedEvent.EventTickets:
-    order = Order(
-      quantity=Order.quantity,  
-      events=event_obj, 
-      users=current_user)
-    db.session.add(order)
-    selectedEvent.EventTickets = '0'
-    selectedEvent.EventStatus = 'Booked Out'
-    db.session.commit()
-    
+
+    PurchaseQuantity = math.ceil(form.quantity)
+    if PurchaseQuantity > selectedEvent.EventTickets:
+      db.session.delete(order)
+
+    elif PurchaseQuantity < selectedEvent.EventTickets:
+      db.session.commit()
+    elif PurchaseQuantity == selectedEvent.EventTickets:
+      selectedEvent.EventTickets = '0'
+      selectedEvent.EventStatus = 'Booked Out'
+      db.session.commit()
+      
     flash('Event is booked')
     return redirect('/')
   return render_template('events/book.html', form=form)
