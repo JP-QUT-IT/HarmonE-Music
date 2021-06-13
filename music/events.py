@@ -110,7 +110,7 @@ def comment(event):
     # using redirect sends a GET request to destination.show
     return redirect(url_for('event.show', id=event))
 
-@bp.route('/<event>/book', methods = ['GET', 'POST']) 
+@bp.route('/book/<id>', methods = ['GET', 'POST']) 
 @login_required
 def book(id):
   event_obj = MusicEvent.query.filter_by(id=id).first()
@@ -122,8 +122,9 @@ def book(id):
     return redirect('/Forbidden')
   
   print('Method type: ', request.method)
+
   form = OrderForm()
-  if(form.validate_on_submit()):
+  if form.validate_on_submit():
     order = Order(
       quantity=form.quantity.data,  
       events=event_obj, 
@@ -134,7 +135,7 @@ def book(id):
   return render_template('events/book.html', form=form)
 
 @bp.route('/delete/<id>', methods=['GET'])
-def delete(eid):
+def delete(id):
     selectedEvent = MusicEvent.query.filter_by(id=eid).first() ## Tells program to get the data from the customer selected ##
     db.session.delete(selectedEvent) ## Tells program to go to delete the selected customer details ##
     db.session.commit() ## Tells program to go to delete the selected customer details ##

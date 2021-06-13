@@ -3,6 +3,7 @@ from wtforms.fields import FileField, TextAreaField, SubmitField, StringField, P
 from wtforms.fields.core import DateTimeField
 from wtforms.validators import InputRequired, Email, EqualTo
 from flask_wtf.file import FileRequired,  FileAllowed
+import wtforms
 
 #add the types of files allowed as a set
 ALLOWED_FILE = {'png', 'jpg', 'JPG', 'PNG'}
@@ -18,12 +19,6 @@ class GenreSearchForm(FlaskForm):
     ('Alternative Rock', 'ALTERNATIVE ROCK'), ('Dance', 'DANCE'),
     ('Disco', 'DISCO'), ('Instrumental', 'INSTRUMENTAL'),
     ('Dubstep', 'DUBSTEP'), ('Orchestra', 'ORCHESTRA')])
-
-
-class OrderForm(FlaskForm):
-  quantity = IntegerField('How Many Tickets Would You Like to Book For This Event?', [InputRequired()])
-  submit = SubmitField('Post')
-
 
 class EventForm(FlaskForm):
   image = FileField('Event Advertisement Image', validators=[FileRequired(message='Image can not be empty'),
@@ -46,7 +41,6 @@ class EventForm(FlaskForm):
   status = SelectField('Event Status', choices=[('upcoming', 'UPCOMING'), ('inactive', 'INACTIVE'), ('booked', 'BOOKED'), ('cancelled', 'CANCELLED')])
   description = TextAreaField('Event Description', validators=[InputRequired()])
   submit = SubmitField("Create")
-
 
 class EditEventForm(FlaskForm):
   image = FileField('Event Advertisement Image', validators=[FileRequired(message='Image can not be empty'),
@@ -73,8 +67,12 @@ class EditEventForm(FlaskForm):
   #this should already be there in the forms.py
   
 class CommentForm(FlaskForm):
-    text = TextAreaField('Comment', [InputRequired()])
-    submit = SubmitField('Post')
+  text = TextAreaField('Comment', [InputRequired()])
+  submit = SubmitField('Post')
+
+class OrderForm(FlaskForm):
+  quantity = IntegerField('How Many Tickets Would You Like to Book For This Event?', [InputRequired()])
+  submit = SubmitField('Post')
 
 class LoginForm(FlaskForm):
     username = StringField('Username',validators=[InputRequired("Please enter your username")])
