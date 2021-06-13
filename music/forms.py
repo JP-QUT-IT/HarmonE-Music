@@ -20,9 +20,9 @@ class GenreSearchForm(FlaskForm):
     ('Dubstep', 'DUBSTEP'), ('Orchestra', 'ORCHESTRA')])
 
 class EventForm(FlaskForm):
-  name = StringField('Event Title', validators=[InputRequired()])
   image = FileField('Event Advertisement Image', validators=[FileRequired(message='Image can not be empty'),
           FileAllowed(ALLOWED_FILE, message='Only support png, jpg, JPG, PNG, bmp')])
+  name = StringField('Event Title', validators=[InputRequired()])
   genre = SelectField('Genres', choices=[('Country', 'COUNTRY'), ('Techno', 'TECHNO'), 
     ('Funk', 'FUNK'), ('Hip Hop', 'HIP HOP'),
     ('Musical', 'MUSICAL'), ('Opera', 'OPERA'),
@@ -33,19 +33,19 @@ class EventForm(FlaskForm):
     ('Alternative Rock', 'ALTERNATIVE ROCK'), ('Dance', 'DANCE'),
     ('Disco', 'DISCO'), ('Instrumental', 'INSTRUMENTAL'),
     ('Dubstep', 'DUBSTEP'), ('Orchestra', 'ORCHESTRA')])
-  description = TextAreaField('Event Description', validators=[InputRequired()])
   venue = StringField('Event Venue', validators=[InputRequired()])
-  start = DateTimeField('Event Start', format='%d/%m/%y', validators=[InputRequired()])
-  end = DateTimeField('Event End', format='%d/%m/%y', validators=[InputRequired()])
+  start = StringField('Event Start', validators=[InputRequired()])
+  end = StringField('Event End', validators=[InputRequired()])
   tickets = IntegerField('Initial Tickets Available', validators=[InputRequired()])
   status = SelectField('Event Status', choices=[('upcoming', 'UPCOMING'), ('inactive', 'INACTIVE'), ('booked', 'BOOKED'), ('cancelled', 'CANCELLED')])
+  description = TextAreaField('Event Description', validators=[InputRequired()])
   submit = SubmitField("Create")
 
 
 class EditEventForm(FlaskForm):
-  name = StringField('Event Title', validators=[InputRequired()])
   image = FileField('Event Advertisement Image', validators=[FileRequired(message='Image can not be empty'),
           FileAllowed(ALLOWED_FILE, message='Only support png, jpg, JPG, PNG, bmp')])
+  name = StringField('Event Title', validators=[InputRequired()])
   genre = SelectField('Genres', choices=[('Country', 'COUNTRY'), ('Techno', 'TECHNO'), 
     ('Funk', 'FUNK'), ('Hip Hop', 'HIP HOP'),
     ('Musical', 'MUSICAL'), ('Opera', 'OPERA'),
@@ -56,12 +56,12 @@ class EditEventForm(FlaskForm):
     ('Alternative Rock', 'ALTERNATIVE ROCK'), ('Dance', 'DANCE'),
     ('Disco', 'DISCO'), ('Instrumental', 'INSTRUMENTAL'),
     ('Dubstep', 'DUBSTEP'), ('Orchestra', 'ORCHESTRA')])
-  description = TextAreaField('Event Description', validators=[InputRequired()])
   venue = StringField('Event Venue', validators=[InputRequired()])
-  start = DateTimeField('Event Start', format='%d/%m/%y', validators=[InputRequired()])
-  end = DateTimeField('Event End', format='%d/%m/%y', validators=[InputRequired()])
+  start = StringField('Event Start', validators=[InputRequired()])
+  end = StringField('Event End', validators=[InputRequired()])
   tickets = IntegerField('Initial Tickets Available', validators=[InputRequired()])
   status = SelectField('Event Status', choices=[('upcoming', 'UPCOMING'), ('inactive', 'INACTIVE'), ('booked', 'BOOKED'), ('cancelled', 'CANCELLED')])
+  description = TextAreaField('Event Description', validators=[InputRequired()])
   submit = SubmitField("Edit")
   
   #this should already be there in the forms.py
