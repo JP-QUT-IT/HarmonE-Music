@@ -7,7 +7,7 @@
 <div class="container py-4">
     <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
-            <h1 class="display-5 fw-bold">YOUR ORDER HISTORY</h1>
+            <h1 class="display-5 fw-bold">Your Order History</h1>
 
             {% if orders %}
             <div class="row justify-content-between">
@@ -16,7 +16,7 @@
 
                 <div class="card mb-5 mr-5 px-0 col-md-3 bg-warning">
                     <div class="card-body">
-                        <h5 class="card-title">Event: {{order.events.EventName}}</h5>
+                        <h5 class="card-title"><b>Event: {{order.events.EventName}}</b></h5>
                         <p class="card-text">Tickets Booked: {{order.quantity}}</p>
                         <p class="card-text">Booking Date: {{order.booked_at}}</p>
                         <p class="card-text"><small class="text-muted">Venue: {{order.events.EventVenue}}</small></p>
