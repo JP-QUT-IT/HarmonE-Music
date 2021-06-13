@@ -76,7 +76,7 @@ def edit(id):
     selectedEvent.EventTickets=form.tickets.data
     selectedEvent.EventStatus=form.status.data
     db.session.commit()
-    flash('Editted event')
+    flash('Edited event')
     return redirect('/')
   elif request.method == 'GET':
     form.name.data = selectedEvent.EventName
