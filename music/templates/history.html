@@ -6,4 +6,37 @@
 
 
 
+<div class="container py-4">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">YOUR ORDER HISTORY</h1>
+            {% if events %}
+            <div class="row justify-content-between">
+                {% for event in events %}
+                <div class="card mb-5 mr-5 px-0 col-md-3">
+                    <img class="card-img-top" height="200rem" src="{{event.EventImage}}" alt="{{event.EventName}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{event.EventName}}</h5>
+                        <p class="card-text">Status: {{event.EventStatus}}</p>
+                        <p class="card-text">Event Date: {{event.EventStart}}</p>
+
+                        <a href="{{url_for('event.show', id=event.id)}}" class="btn btn-danger">View Details</a>
+                        <p class="card-text"><small class="text-muted">{{event.EventVenue}}</small></p>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+                {% else %}
+                <h1 class="display-4">Sorry, you haven't made an order yet.</h1>
+                <button class="btn btn-primary btn-lg my-4">Click Here to Browse Events to Book</button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endif %}
+
 {% endblock %}
