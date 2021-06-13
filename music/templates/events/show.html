@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %}  <!-- Imports the Navbar and Footer -->
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
@@ -10,8 +10,16 @@
         <div class="col-md-10 p-lg-10 mx-auto my-5">
             
             <h1 class="display-3 fw-normal">{{event.EventName}}</h1>
+            <p>Creator: {{event.EventCreator}}---(Status: {{event.EventStatus}})</p>
             <img class="mt-4" height="200rem" src="{{event.EventImage}}" alt="{{event.EventName}}">
             <p class="lead fw-normal">{{event.EventDescription}}</p>
+            <p>Genre: {{event.EventGenre}}</p>
+            <p>Venue: {{event.EventVenue}}</p>
+            <p>Event Start: {{event.EventStart}}</p> <p>Event End: {{event.EventEnd}}</p>
+            <p>Tickets Available: {{event.EventTickets}}</p>
+
+
+            <p></p>
 
 
             {% if current_user.is_authenticated and current_user.role=="admin" %}
@@ -22,7 +30,7 @@
             <a class="btn btn-outline-success" href="{{url_for('event.book', id=event.id)}}">Book Tickets Now</a>
 
             {% endif %}
-
+            <p></p>
         </div>
         <div class="product-device shadow-sm d-none d-md-block"></div>
         <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
