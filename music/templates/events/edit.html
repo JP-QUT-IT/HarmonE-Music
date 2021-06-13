@@ -7,51 +7,51 @@
     <section class="container align-content-center">
 
         <form action="" method="post" class="form" role="form" enctype="multipart/form-data">
-        {{ form.csrf_token() }}
-        
-        <section class="editEvent row pt-5 mt-5 p-5" style="background-color:rgb(59, 59, 59); color: gold;">
+            {{ form.csrf_token() }}
 
+            <section class="editEvent row pt-5 mt-5 p-5" style="background-color:rgb(59, 59, 59); color: gold;">
 
-            
-            
-            <h4>EDIT GIG DETAILS</h4>
+                <h4>EDIT GIG DETAILS</h4>
 
-            <section class="pt-3">
-                {{ wtf.form_field(form.image, class='form-control', placeholder="Upload") }}
+                <section class="pt-3">
+                    {{ wtf.form_field(form.image, class='form-control', placeholder="Upload") }}
+                </section>
+
+                <section class="pt-3">
+                    {{ wtf.form_field(form.name, class='form-control', placeholder="Name") }}
+                </section>
+
+                <section class="col-sm-12 col-md-6 pt-3">
+                    {{ wtf.form_field(form.genre, class='form-control', placeholder="Genre") }}
+                </section>
+
+                <section class="col-12 col-sm-6 pt-3">
+                    {{ wtf.form_field(form.venue, class='form-control', placeholder="Venue") }}
+                </section>
+
+                <section class="col-12 col-sm-6 pt-3">
+                    {{ wtf.form_field(form.start, class='form-control', placeholder="Event Start") }}
+                </section>
+
+                <section class="col-12 col-sm-6 pt-3">
+                    {{ wtf.form_field(form.end, class='form-control', placeholder="Event End") }}
+                </section>
+
+                <section class="col-12 col-sm-6 pt-3">
+                    {{ wtf.form_field(form.tickets, class='form-control', placeholder="Ticket Volume") }}
+                </section>
+
+                <section class="col-12 col-sm-6 pt-3">
+                    {{ wtf.form_field(form.status, class='form-control', placeholder="Status") }}
+                </section>
+
+                <section class="pt-3">
+                    {{ wtf.form_field(form.description, class='form-control', placeholder="Description") }}
+                </section>
+
+                <button type="submit" class="btn btn-primary btn-lg my-4">Submit</button>
+
             </section>
-
-            <section class="pt-3">
-                {{ wtf.form_field(form.name, class='form-control', placeholder="Name") }}
-            </section>
-
-            <section class="col-sm-12 col-md-6 pt-3">
-                {{ wtf.form_field(form.genre, class='form-control', placeholder="Genre") }}
-            </section>
-
-            <section class="col-12 col-sm-6 pt-3">
-                {{ wtf.form_field(form.venue, class='form-control', placeholder="Venue") }}
-            </section>
-
-            <section class="col-12 col-sm-6 pt-3">
-                {{ wtf.form_field(form.start, class='form-control', placeholder="Event Start") }}
-            </section>
-
-            <section class="col-12 col-sm-6 pt-3">
-                {{ wtf.form_field(form.end, class='form-control', placeholder="Event End") }}
-            </section>
-
-            <section class="col-12 col-sm-6 pt-3">
-                {{ wtf.form_field(form.tickets, class='form-control', placeholder="Ticket Volume") }}
-            </section>
-            <section class="col-12 col-sm-6 pt-3">
-                {{ wtf.form_field(form.status, class='form-control', placeholder="Status") }}
-            </section>
-            <section class="pt-3">
-                {{ wtf.form_field(form.description, class='form-control', placeholder="Description") }}
-            </section>
-            <button type="submit" class="btn btn-primary btn-lg my-4">Submit</button>
-
-        </section>
         </form>
 
     </section>
