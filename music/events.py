@@ -3,8 +3,8 @@ from .views import events
 from flask import ( 
     Blueprint, app, flash, render_template, request, url_for, redirect
 ) 
-from .models import MusicEvent, Comment
-from .forms import CommentForm, EventForm, EditEventForm
+from .models import MusicEvent, Comment, Order
+from .forms import CommentForm, EventForm, EditEventForm, OrderForm
 from flask_login import login_required, current_user
 from . import db
 import music
@@ -118,6 +118,29 @@ def comment(event):
       print('Your comment has been added', 'success') 
     # using redirect sends a GET request to destination.show
     return redirect(url_for('event.show', id=event))
+
+@bp.route('/book/<id>', methods=['GET','POST'])
+@login_required
+def book(id):
+  event_obj = MusicEvent.query.filter_by(id=id).first()
+  if (current_user.role == 'customer'):
+    pass
+  elif (current_user.role == 'admin'):
+    return redirect('/Forbidden')
+  else:
+    return redirect('/Forbidden')
+  
+  print('Method type: ', request.method)
+  form = OrderForm()
+  if(form.validate_on_submit()):
+    order = Order(
+      quantity=form.quantity.data,  
+      events=event_obj, 
+      users=current_user)
+    db.session.add(order)
+    db.session.commit()
+    return redirect('/')
+  return render_template('events/book.html', form=form)
 
 @bp.route('/delete/<id>', methods=['GET'])
 def delete(eid):
