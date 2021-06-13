@@ -118,7 +118,7 @@ def comment(event):
     # using redirect sends a GET request to destination.show
     return redirect(url_for('event.show', id=event))
 
-@bp.route('/book/<id>', methods=['GET','POST'])
+@bp.route('/<event>/book', methods = ['GET', 'POST']) 
 @login_required
 def book(id):
   event_obj = MusicEvent.query.filter_by(id=id).first()

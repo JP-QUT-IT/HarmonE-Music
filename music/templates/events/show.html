@@ -18,35 +18,34 @@
             <a class="btn btn-outline-secondary" href="{{url_for('event.edit', id=event.id)}}">Edit This Event</a>
 
             {% elif current_user.is_authenticated and current_user.role=="customer" %}
-            <a class="btn btn-outline-success" href="{{url_for('event.book', id=event.id)}}">Book Tickets Now</a>
-
             <!-- Button Trigger Modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Book Tickets Modal
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#BookingModal">
+                Book Tickets Now
             </button>
 
             <!-- Ticket Building Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="BookingModal" tabindex="-1" aria-labelledby="ExampleBookingModal"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="ExampleBookingModal">Tickets for {{event.EventName}}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
 
                             <form action="" method="post" class="form row justify-content-between" role="form">
-                                {{ form.csrf_token() }}
+                                Tickets Available: {{event.EventTickets}}
+                                {{wtf.quick_form(form,
+                                    "/events/book".format(event.id))}}
                                 
-                                <button type="submit" class="btn btn-primary btn-lg mt-5">Place Ticket Order</button>
                             </form>
 
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel Purchase</button>
+                            <button type="submit" class="btn btn-primary">Confirm Purchase</button>
                         </div>
                     </div>
                 </div>
@@ -86,7 +85,7 @@
                         <!-- Form to input comment -->
 
                         {{wtf.quick_form(form,
-                        "/events/{0}/comment".format(event.id), button_map={'submit':'warning'})}}
+                        "/events/{0}/comment".format(event.id))}}
 
                         <!-- table of comments recieved -->
                         <div class="table-responsive">
