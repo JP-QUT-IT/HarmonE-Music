@@ -32,7 +32,7 @@ def Error_403():
     return render_template('Error_Handling/403.html')
 
 @mainbp.route('/history')
-def history(current_user):
+def history():
     order = Order.query.all()
     return render_template('history.html', order=order)
 
