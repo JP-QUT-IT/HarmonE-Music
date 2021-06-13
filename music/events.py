@@ -138,7 +138,7 @@ def book(id):
 
 @bp.route('/delete/<id>', methods=['GET'])
 def delete(id):
-    selectedEvent = MusicEvent.query.filter_by(id=eid).first() ## Tells program to get the data from the customer selected ##
+    selectedEvent = MusicEvent.query.filter_by(id=id).first() ## Tells program to get the data from the customer selected ##
     db.session.delete(selectedEvent) ## Tells program to go to delete the selected customer details ##
     db.session.commit() ## Tells program to go to delete the selected customer details ##
     flash('Congratulations, you have deleted an Customer!')
