@@ -55,7 +55,7 @@ class Comment(db.Model):
 class Order(db.Model):
     __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True)
-    quantity = db.Column(db.String(2))
+    quantity = db.Column(db.Integer)
     booked_at = db.Column(db.DateTime, default=datetime.now())
 
     #add the foreign keys
