@@ -35,13 +35,17 @@
                         <div class="modal-body">
 
                             <form action="" method="post" class="form row justify-content-between" role="form">
+<<<<<<< HEAD
                                 Tickets Available: {{event.EventTickets}}
                                 {{wtf.quick_form(form,
                                     "/events/book".format(event.id))}}
                                 
+=======
+                                {{ form.csrf_token() }}
+
+                                <button type="submit" class="btn btn-primary btn-lg mt-5">Place Ticket Order</button>
+>>>>>>> 7645f495d76503d78f8b3e38c04b6795648c8788
                             </form>
-
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel Purchase</button>
