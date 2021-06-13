@@ -1,26 +1,29 @@
-{% extends 'base.html' %}  <!-- Imports the Navbar and Footer -->
+{% extends 'base.html' %}
+<!-- Imports the Navbar and Footer -->
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
 
-<div class="container mt-5" style="background-color:rgb(59, 59, 59); width: auto; color: gold;">
-    <div class="row mt-5" style="width: 100%;">
-        <div class="col-md-12">
+<div class="container py-4">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <div class="col-md-12">
 
-            <h1 class="display-4">{{current_user.name}}, You Are On Your Way To Booking Tickets For
-                {{EventName}}!
-            </h1>
+                <h1 class="display-4">{{current_user.name}}, You Are On Your Way To Booking Tickets For
+                    {{EventName}}!
+                </h1>
 
-            <h1 class="display-4">Tickets Available: {{EventTickets}}</h1>
+                <h1 class="display-4">Tickets Available: {{EventTickets}}</h1>
 
-            <form action="" method="post" class="form" role="form">
-                {{ form.csrf_token() }}
+                <form action="" method="post" class="form" role="form">
+                    {{ form.csrf_token() }}
 
-                {{ wtf.form_field(form.quantity, class='form-control', placeholder="Amount") }}
+                    {{ wtf.form_field(form.quantity, class='form-control', placeholder="Amount") }}
 
-                <button type="submit" class="btn btn-primary btn-lg my-4">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-lg my-4">Submit</button>
 
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
