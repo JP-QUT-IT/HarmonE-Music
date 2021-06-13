@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for, flash
-from .models import MusicEvent
+from .models import MusicEvent, Order
 from .forms import GenreSearchForm
+from flask_login import current_user
 from . import db
 
 mainbp = Blueprint('main', __name__)
@@ -31,9 +32,9 @@ def Error_403():
     return render_template('Error_Handling/403.html')
 
 @mainbp.route('/history')
-def history():
-    events = MusicEvent.query.all()
-    return render_template('history.html', events=events)
+def history(current_user):
+    order = Order.query.all()
+    return render_template('history.html', order=order)
 
 # route to allow users to search
 @mainbp.route('/search')  
