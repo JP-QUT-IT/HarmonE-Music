@@ -33,8 +33,9 @@ def Error_403():
 
 @mainbp.route('/history')
 def history():
-    order = Order.query.all()
-    return render_template('history.html', order=order)
+    events = MusicEvent.query.all()
+    orders = Order.query.all()
+    return render_template('history.html', orders=orders, events=events)
 
 # route to allow users to search
 @mainbp.route('/search')  

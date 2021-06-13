@@ -31,6 +31,7 @@ def create():
     return redirect('/Forbidden')
   
   print('Method type: ', request.method)
+
   form = EventForm()
   if(form.validate_on_submit()):
     db_file_path=check_upload_file(form)
@@ -107,7 +108,7 @@ def comment(event):
 
       #flashing a message which needs to be handled by the html
       #flash('Your comment has been added', 'success')  
-      print('Your comment has been added', 'success') 
+      flash('Your comment has been added', 'success') 
     # using redirect sends a GET request to destination.show
     return redirect(url_for('event.show', id=event))
 
