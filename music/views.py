@@ -30,10 +30,10 @@ def Error_500():
 def Error_403():
     return render_template('Error_Handling/403.html')
 
-@mainbp.route('/events')
-def events():
+@mainbp.route('/history')
+def history():
     events = MusicEvent.query.all()
-    return render_template('events.html', events=events)
+    return render_template('history.html', events=events)
 
 # route to allow users to search
 @mainbp.route('/search')  

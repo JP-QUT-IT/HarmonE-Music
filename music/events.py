@@ -1,5 +1,4 @@
 import re
-from .views import events
 from flask import ( 
     Blueprint, app, flash, render_template, request, url_for, redirect
 ) 
