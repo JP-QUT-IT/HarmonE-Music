@@ -1,6 +1,6 @@
-{% extends "base.html" %}  <!-- Imports the Navbar and Footer -->
+<!-- Import Navbar and Footer -->
+{% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
-
 
 {% block content %}
 
@@ -9,11 +9,11 @@
         <div class="container-fluid py-5">
             <h1 class="display-5 fw-bold">Your Order History</h1>
 
-            {% if orders %}
+
             <div class="row justify-content-between">
 
                 {% for order in orders %}
-
+                {% if order.user_id == current_user.id %}
                 <div class="card mb-5 mr-5 px-0 col-md-3 bg-warning">
                     <div class="card-body">
                         <h5 class="card-title"><b>Event: {{order.events.EventName}}</b></h5>
@@ -22,16 +22,16 @@
                         <p class="card-text"><small class="text-muted">Venue: {{order.events.EventVenue}}</small></p>
                     </div>
                 </div>
-
-
-                {% endfor %}
-
                 {% else %}
                 <h1 class="display-4">Sorry {{current_user.name}}, you haven't made an order yet.</h1>
                 <a href='/'><button class="btn btn-primary btn-lg my-4">Click Here to Browse Our Events </button>
                 </a>
 
                 {% endif %}
+
+                {% endfor %}
+
+
 
             </div>
         </div>

@@ -104,28 +104,14 @@ def edit(id):
         form.status.data = selectedEvent.EventStatus
     return render_template('events/edit.html', form=form)
 
-
-## Comment Function and creation for selected Event ##
-@bp.route('/<event>/comment', methods=['GET', 'POST'])
-def comment(event):
-    form = CommentForm()
-    event_obj = MusicEvent.query.filter_by(id=event).first()
-    if form.validate_on_submit():
-        comment = Comment(
-            text=form.text.data,
-            events=event_obj,
-            users=current_user)
-        db.session.add(comment)
-        db.session.commit()
-        flash('Your comment has been added', 'success')
-    return redirect(url_for('event.show', id=event))
-
-
 ## Booking Event Function and Page Creation ##
+
+
 @bp.route('/book/<id>', methods=['GET', 'POST'])
 @login_required
 def book(id):
     event_obj = MusicEvent.query.filter_by(id=id).first()
+
     if (current_user.role == 'customer'):
         pass
     elif (current_user.role == 'admin'):
@@ -145,6 +131,22 @@ def book(id):
         return redirect('/')
     return render_template('events/book.html', form=form)
 
+## Comment Function and creation for selected Event ##
+
+
+@bp.route('/<event>/comment', methods=['GET', 'POST'])
+def comment(event):
+    form = CommentForm()
+    event_obj = MusicEvent.query.filter_by(id=event).first()
+    if form.validate_on_submit():
+        comment = Comment(
+            text=form.text.data,
+            events=event_obj,
+            users=current_user)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Your comment has been added', 'success')
+    return redirect(url_for('event.show', id=event))
 
 ## What the team wants the book page and function to do but doesn't work as there are errors with SQL data types and Python data types ##
 # @bp.route('/book/<id>', methods = ['GET', 'POST'])

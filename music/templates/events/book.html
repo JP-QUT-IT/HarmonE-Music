@@ -1,5 +1,5 @@
+<!-- Import Navbar and Footer -->
 {% extends 'base.html' %}
-<!-- Imports the Navbar and Footer -->
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
@@ -8,12 +8,12 @@
     <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
             <div class="col-md-12">
-
-                <h1 class="display-4">{{current_user.name}}, You Are On Your Way To Booking Tickets For
-                    {{EventName}}!
+                <h1 class="display-3">Confirm Ticket Booking</h1>
+                <h1 class="display-5">{{current_user.name}}, You Are On Your Way To Booking Tickets For
+                    insertTheDynamicNameReferenceHere
                 </h1>
 
-                <h1 class="display-4">Tickets Available: {{EventTickets}}</h1>
+                <h1 class="display-5">Tickets Available: insertTheDynamicNameReferenceHere</h1>
 
                 <form action="" method="post" class="form" role="form">
                     {{ form.csrf_token() }}
