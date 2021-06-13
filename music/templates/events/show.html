@@ -18,7 +18,7 @@
             <a class="btn btn-outline-secondary" href="{{url_for('event.edit', id=event.id)}}">Edit This Event</a>
 
             {% elif current_user.is_authenticated and current_user.role=="customer" %}
-            <a class="btn btn-outline-success" href="">Book Tickets Now</a>
+            <a class="btn btn-outline-success" href="{{url_for('event.book', id=event.id)}}">>Book Tickets Now</a>
             {% endif %}
 
         </div>
