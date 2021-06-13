@@ -1,7 +1,9 @@
+## Import Necessary Modules ##
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+
 
 db=SQLAlchemy()
 
@@ -18,7 +20,6 @@ def internal_server_error(e):
     return render_template('Error_Handling/500.html'), 500
 
 def create_app():
-  
     app=Flask(__name__)
     app.debug=True
     app.secret_key='utroutoru'

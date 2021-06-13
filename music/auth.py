@@ -1,3 +1,4 @@
+## Import Necessary Modules ##
 from flask import ( 
     Blueprint, flash, render_template, request, url_for, redirect
 ) 
@@ -8,62 +9,55 @@ from flask_login import login_user, login_required, logout_user
 from . import db
 
 
-#create a blueprint
+## Create a blueprint for auth.py ##
 bp = Blueprint('auth', __name__)
 
+
+## Login Function and Page ##
 @bp.route('/login', methods=['GET','POST'])
 def login():
     login_form = LoginForm()
     error=None
     if(login_form.validate_on_submit()==True):
-        #get the username and password from the database
         username = login_form.username.data
         password = login_form.password.data
         u1 = User.query.filter_by(name=username).first()
-        #if there is no user with that name
         if u1 is None:
             error='Incorrect user name'
-        #check the password - notice password hash function
         elif not check_password_hash(u1.password_hash, password): # takes the hash and password
             error='Incorrect password'
         if error is None:
-            #all good, set the login_user of flask_login to manage the user
             login_user(u1)
             return redirect(url_for('main.index'))
         else:
             flash(error)
     return render_template('user.html', form=login_form, heading='Login')
 
+## Register Function and Page ##
 @bp.route('/register', methods=['GET','POST'])
 def register():
     register = RegisterForm()
-    #the validation of form submis is fine
     if (register.validate_on_submit() == True):
-            #get username, password and email from the form
             uname =register.username.data
             pwd = register.password.data
             email=register.email.data
             contact=register.contact_number.data
             addresss=register.address.data
             role = register.usertype.data
-            #check if a user exists
             u1 = User.query.filter_by(name=uname).first()
             if u1:
                 flash('User name already exists, please login')
                 return redirect(url_for('auth.login'))
-            # don't store the password - create password hash
             pwd_hash = generate_password_hash(pwd)
-            #create a new user model object
             new_cust = User(name=uname, password_hash=pwd_hash, emailid=email, contactnumber=contact, addres=addresss, role=role)
             db.session.add(new_cust)
             db.session.commit()
-            #commit to the database and redirect to HTML page
             return redirect(url_for('main.index'))
-    #the else is called when there is a get message
     else:
         return render_template('user.html', form=register, heading='Register')
 
 
+## Logout Function ##
 @bp.route('/logout')
 def logout():
     logout_user()

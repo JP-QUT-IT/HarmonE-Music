@@ -1,3 +1,4 @@
+## Import Necessary Modules ##
 import re
 from flask import ( 
     Blueprint, app, flash, render_template, request, url_for, redirect
@@ -12,17 +13,17 @@ from flask_login import login_required, current_user
 from . import db
 import math
 
-#create a blueprint
+## Create a blueprint for events.py ##
 bp = Blueprint('event', __name__, url_prefix='/events')
 
-#create a page that will show the details fo the destination
+## Showing Event Function and Page Creation ##
 @bp.route('/<id>') 
 def show(id): 
   event = MusicEvent.query.filter_by(id=id).first()  
   cform = CommentForm()
   return render_template('events/show.html', event=event, form=cform)
 
-
+## Creating Event Function and Page Creation ##
 @bp.route('/create', methods=['GET','POST'])
 @login_required
 def create():
@@ -56,6 +57,8 @@ def create():
     return redirect('/')
   return render_template('events/create.html', form=form)
 
+
+## Editing Event Function and Page Creation ##
 @bp.route('/edit/<id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
@@ -96,76 +99,97 @@ def edit(id):
   return render_template('events/edit.html', form=form)
 
 
+## Comment Function and creation for selected Event ##
 @bp.route('/<event>/comment', methods = ['GET', 'POST']) 
 def comment(event):  
     form = CommentForm()  
-    #get the destination object associated to the page and the comment
     event_obj = MusicEvent.query.filter_by(id=event).first()  
     if form.validate_on_submit():  
-      #read the comment from the form
-      comment = Comment(text=form.text.data,  
-                        events=event_obj, users=current_user) 
-      #here the back-referencing works - comment.destination is set
-      # and the link is created
+      comment = Comment(
+        text=form.text.data,  
+        events=event_obj, 
+        users=current_user) 
       db.session.add(comment) 
-      db.session.commit() 
-
-      #flashing a message which needs to be handled by the html
-      #flash('Your comment has been added', 'success')  
+      db.session.commit()  
       flash('Your comment has been added', 'success') 
-    # using redirect sends a GET request to destination.show
     return redirect(url_for('event.show', id=event))
 
+
+## Booking Event Function and Page Creation ##
 @bp.route('/book/<id>', methods = ['GET', 'POST']) 
 @login_required
-def book(id):
-  event_obj = MusicEvent.query.filter_by(id=id).first()
-  if (current_user.role == 'customer'):
-    pass
-  elif (current_user.role == 'admin'):
-    return redirect('/Forbidden')
-  else:
-    return redirect('/Forbidden')
-  
-  print('Method type: ', request.method)
-  form = OrderForm()
-  if form.validate_on_submit():
-    selectedEvent = MusicEvent.query.filter_by(id = id).first()
-    order = Order(
+def book(event):  
+    form = OrderForm() 
+    if (current_user.role == 'customer'):
+      pass
+    elif (current_user.role == 'admin'):
+      return redirect('/Forbidden')
+    else:
+      return redirect('/Forbidden') 
+    event_obj = MusicEvent.query.filter_by(id=event).first()  
+    if form.validate_on_submit():  
+      order = Order(
         quantity=form.quantity.data,  
         events=event_obj, 
-        users=current_user)
-    db.session.add(order)
+        users=current_user) 
+      db.session.add(order) 
+      db.session.commit() 
 
-    PurchaseQuantity = math.ceil(form.quantity)
-    if PurchaseQuantity > selectedEvent.EventTickets:
-      db.session.delete(order)
+      flash('Your comment has been added', 'success') 
 
-    elif PurchaseQuantity < selectedEvent.EventTickets:
-      db.session.commit()
-    elif PurchaseQuantity == selectedEvent.EventTickets:
-      selectedEvent.EventTickets = '0'
-      selectedEvent.EventStatus = 'Booked Out'
-      db.session.commit()
-      
-    flash('Event is booked')
-    return redirect('/')
-  return render_template('events/book.html', form=form)
+    return redirect(url_for('event.show', id=event))
 
-@bp.route('/delete/<id>', methods=['GET'])
-def delete(id):
-    selectedEvent = MusicEvent.query.filter_by(id=id).first() ## Tells program to get the data from the customer selected ##
-    db.session.delete(selectedEvent) ## Tells program to go to delete the selected customer details ##
-    db.session.commit() ## Tells program to go to delete the selected customer details ##
-    flash('Congratulations, you have deleted an Customer!')
-    return redirect('/')
 
+## What the team wants the book page and function to do but doesn't work as there are errors with SQL data types and Python data types ##
+# @bp.route('/book/<id>', methods = ['GET', 'POST']) 
+# @login_required
+# def book(id):
+
+#   event_obj = MusicEvent.query.filter_by(id=id).first()
+#   if (current_user.role == 'customer'):
+#     pass
+#   elif (current_user.role == 'admin'):
+#     return redirect('/Forbidden')
+#   else:
+#     return redirect('/Forbidden')
+  
+#   print('Method type: ', request.method)
+#   form = OrderForm()
+#   if form.validate_on_submit():
+#     selectedEvent = MusicEvent.query.filter_by(id = id).first()
+#     order = Order(
+#         quantity=form.quantity.data,  
+#         events=event_obj, 
+#         users=current_user)
+#     db.session.add(order)
+#     PurchaseQuantity = math.ceil(form.quantity)
+#     if PurchaseQuantity > selectedEvent.EventTickets:
+#       db.session.delete(order)
+#     elif PurchaseQuantity < selectedEvent.EventTickets:
+#       db.session.commit()
+#     elif PurchaseQuantity == selectedEvent.EventTickets:
+#       selectedEvent.EventTickets = '0'
+#       selectedEvent.EventStatus = 'Booked Out'
+#       db.session.commit() 
+     
+#     flash('Event is booked')
+#     return redirect('/')
+#   return render_template('events/book.html', form=form)
+
+
+## A Delete Function that doesn't work ##
+# @bp.route('/delete/<id>', methods=['GET'])
+# def delete(id):
+#     selectedEvent = MusicEvent.query.filter_by(id=id).first() ## Tells program to get the data from the customer selected ##
+#     db.session.delete(selectedEvent) ## Tells program to go to delete the selected customer details ##
+#     db.session.commit() ## Tells program to go to delete the selected customer details ##
+#     flash('Congratulations, you have deleted an Customer!')
+#     return redirect('/')
+
+
+## File Upload Function ##
 import os
 from werkzeug.utils import secure_filename
-
-  # a new function
-
-  
 def check_upload_file(form):
   fp=form.image.data
   filename=fp.filename
