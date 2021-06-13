@@ -19,9 +19,11 @@ class GenreSearchForm(FlaskForm):
     ('Disco', 'DISCO'), ('Instrumental', 'INSTRUMENTAL'),
     ('Dubstep', 'DUBSTEP'), ('Orchestra', 'ORCHESTRA')])
 
+
 class OrderForm(FlaskForm):
-  quantity = IntegerField('Amount of Tickets Yo', [InputRequired()])
+  quantity = IntegerField('How Many Tickets Would You Like to Book For This Event?', [InputRequired()])
   submit = SubmitField('Post')
+
 
 class EventForm(FlaskForm):
   image = FileField('Event Advertisement Image', validators=[FileRequired(message='Image can not be empty'),
