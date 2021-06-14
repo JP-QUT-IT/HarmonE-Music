@@ -70,12 +70,10 @@ def create():
 def edit(id):
     selectedEvent = MusicEvent.query.filter_by(id=id).first()
 
-    if (current_user.name == selectedEvent.EventCreator):
-        pass
-    elif (current_user.role == 'customer'):
+    if (current_user.role == 'customer'):
         return redirect('/Forbidden')
     else:
-        return redirect('/Forbidden')
+        pass
 
     form = EditEventForm(name=selectedEvent)
     if form.validate_on_submit():
@@ -128,7 +126,7 @@ def book(id):
             users=current_user)
         db.session.add(order)
         db.session.commit()
-        flash('You booking is successful')
+        flash('Your booking is successful')
         return redirect('/')
     return render_template('events/book.html', form=form)
 
