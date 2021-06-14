@@ -1,4 +1,5 @@
-{% extends 'base.html' %}  <!-- Imports the Navbar and Footer -->
+{% extends 'base.html' %}
+<!-- Imports the Navbar and Footer -->
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
@@ -6,31 +7,37 @@
 
 
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-5 text-center bg-light rounded-3">
+        <div class="container col-xxl-8 px-3 py-4">
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img src="{{event.EventImage}}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes"
+                        width="700" height="500" loading="lazy">
+                    <p>Status: {{event.EventStatus}}</p>
+                </div>
+                <div class="col-lg-6">
+                    <h1 class="display-5 fw-bold lh-1 mb-3">{{event.EventName}}</h1>
+                    <p class="lead">{{event.EventDescription}}</p>
+                    <p>Venue: {{event.EventVenue}}</p>
+                    <p>Event Date: {{event.EventStart}}</p>
 
-        <div class="col-md-10 p-lg-10 mx-auto my-5">
-            
-            <h1 class="display-3 fw-normal">{{event.EventName}}</h1>
-            <p>Creator: {{event.EventCreator}}---(Status: {{event.EventStatus}})</p>
-            <img class="mt-4" height="200rem" src="{{event.EventImage}}" alt="{{event.EventName}}">
-            <p class="lead fw-normal">{{event.EventDescription}}</p>
-            <p>Genre: {{event.EventGenre}}</p>
-            <p>Venue: {{event.EventVenue}}</p>
-            <p>Event Start: {{event.EventStart}}</p> <p>Event End: {{event.EventEnd}}</p>
-            <p>Tickets Available: {{event.EventTickets}}</p>
+                    <div>
+                        {% if current_user.is_authenticated and current_user.role=="admin" %}
+                        <!-- if the user is logged in as an admin, display the button to edit the selected event -->
+                        <a class="btn btn-outline-secondary" href="{{url_for('event.edit', id=event.id)}}">Edit This
+                            Event</a>
 
+                        {% elif event.EventStatus == "cancelled" or event.EventStatus == "inactive" %}
+                        <p class="lead" style="color: red;">Sorry, this event is currently unavailable</p>
 
-            <p></p>
+                        {% elif current_user.is_authenticated and current_user.role=="customer" %}
+                        <!-- if user is a customer, display the booking page -->
+                        <a class="btn btn-outline-success" href="{{url_for('event.book', id=event.id)}}">Book Tickets
+                            Now</a>
 
-
-            {% if current_user.is_authenticated and current_user.role=="admin" %}
-            <a class="btn btn-outline-secondary" href="{{url_for('event.edit', id=event.id)}}">Edit This Event</a>
-
-            {% elif current_user.is_authenticated and current_user.role=="customer" %}
-            <!-- Button Trigger Modal -->
-            <a class="btn btn-outline-success" href="{{url_for('event.book', id=event.id)}}">Book Tickets Now</a>
-
-            {% endif %}
-            <p></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="product-device shadow-sm d-none d-md-block"></div>
         <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>

@@ -44,6 +44,7 @@ def Error_403():
 ## Creation of Booking History Route ##
 @mainbp.route('/history')
 def history():
+    count = {}
     events = MusicEvent.query.all()
     orders = Order.query.all()
     return render_template('history.html', orders=orders, events=events)
