@@ -51,6 +51,7 @@ def register():
             pwd_hash = generate_password_hash(pwd)
             new_cust = User(name=uname, password_hash=pwd_hash, emailid=email, contactnumber=contact, addres=addresss, role=role)
             db.session.add(new_cust)
+            flash('Registration completed, please login')
             db.session.commit()
             return redirect(url_for('main.index'))
     else:
