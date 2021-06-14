@@ -1,1 +1,1 @@
-web: gunicorn -w 2 'travel:create_app()'
+web: gunicorn -w 2 'music:create_app()'
